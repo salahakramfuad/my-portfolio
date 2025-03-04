@@ -9,19 +9,22 @@ const projects = [
     title: 'AI Startup Landing Page',
     description: 'A sleek, modern AI-based startup landing page.',
     image: '/images/ai-startup-landing-page.png',
-    link: '#'
+    link: '#',
+    year: '2025'
   },
   {
     title: 'Dark SaaS Landing Page',
     description: 'A professional and elegant dark-themed SaaS landing page.',
     image: '/images/dark-saas-landing-page.png',
-    link: '#'
+    link: '#',
+    year: '2025'
   },
   {
     title: 'Creative Portfolio',
     description: 'A minimal and aesthetic portfolio website.',
     image: '/images/creative-portfolio.png',
-    link: '#'
+    link: '#',
+    year: '2025'
   }
 ]
 
