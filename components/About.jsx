@@ -12,7 +12,6 @@ const fadeIn = {
 const About = () => {
   return (
     <div className='container mx-auto px-6 py-16 text-white'>
-      {/* Heading */}
       <motion.h1
         className='text-4xl font-bold text-center mb-6 font-[Calistoga]'
         initial='hidden'
@@ -32,11 +31,10 @@ const About = () => {
         Passionate Frontend Developer crafting seamless user experiences with
         modern technologies.
       </motion.p>
-
-      <div className='grid grid-cols-1 md:grid-cols-2 gap-12 items-center'>
+      <div className='flex flex-col md:flex-row gap-12 items-center bg-slate-900 backdrop-blur-md p-8 rounded-xl shadow-2xl'>
         {/* Image Section */}
         <motion.div
-          className='relative w-full h-72 md:h-96 overflow-hidden rounded-lg shadow-lg'
+          className='relative w-full h-96 md:h-[500px] flex items-center justify-center overflow-hidden rounded-xl shadow-lg group'
           initial='hidden'
           whileInView='visible'
           viewport={{ once: true }}
@@ -45,44 +43,41 @@ const About = () => {
           <Image
             src='/images/Fuad.png' // Updated profile picture
             alt='Profile Picture - Fuad'
-            height={200}
-            width={200}
-            className='object-cover transition-transform duration-500 group-hover:scale-110'
+            width={400} // Larger width
+            height={400} // Larger height
+            className='object-cover rounded-full border-4 border-blue-500 transition-transform duration-500 group-hover:scale-105'
           />
-          {/* Dark Overlay */}
-          <div className='absolute inset-0 bg-black bg-opacity-40 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-center justify-center'>
-            <span className='text-white text-lg font-semibold'>Fuad</span>
-          </div>
         </motion.div>
 
         {/* Bio Section */}
         <motion.div
-          className='space-y-4'
+          className='space-y-6 text-center md:text-left'
           initial='hidden'
           whileInView='visible'
           viewport={{ once: true }}
           variants={fadeIn}
         >
-          <h2 className='text-2xl font-semibold'>Hi, I'm Fuad 👋</h2>
-          <p className='text-gray-300'>
+          <h2 className='text-3xl font-bold bg-gradient-to-r from-blue-500 to-purple-500 bg-clip-text text-transparent'>
+            Hi, I'm Salah Akram Fuad 👋
+          </h2>
+          <p className='text-gray-300 text-lg'>
             I'm a passionate frontend developer with a love for building sleek,
             responsive, and high-performance web applications. I specialize in
             modern web technologies like React, Next.js, and Tailwind CSS.
           </p>
-          <p className='text-gray-300'>
+          <p className='text-gray-300 text-lg'>
             My journey started with a curiosity for coding, and today, I bring
             ideas to life through engaging digital experiences.
           </p>
           <a
             href='#contact'
-            className='inline-block bg-blue-600 text-white px-6 py-3 rounded-full hover:bg-blue-700 transition-all focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2'
+            className='inline-block bg-gradient-to-r from-blue-600 to-purple-600 text-white px-8 py-3 rounded-full hover:from-blue-700 hover:to-purple-700 transition-all transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2'
             aria-label='Contact Fuad'
           >
             Let's Connect →
           </a>
         </motion.div>
       </div>
-
       {/* Skills Section */}
       <motion.div
         className='mt-16'
@@ -116,7 +111,6 @@ const About = () => {
           ))}
         </div>
       </motion.div>
-
       {/* Fun Facts Section */}
       <motion.div
         className='mt-16 text-center'
