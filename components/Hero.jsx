@@ -103,14 +103,16 @@ export const Hero = () => {
               <span className='mr-2'>Explore my work ↓</span>
             </motion.button>
           </a>
-          <motion.button
-            className='inline-flex bg-transparent border-2 border-blue-600 text-blue-600 px-6 py-3 rounded-full hover:bg-blue-600 hover:text-white transition-all cursor-pointer'
-            whileHover={{ scale: 1.05 }} // Scale up on hover
-            whileTap={{ scale: 0.95 }} // Scale down on tap
-            aria-label="Let's Connect"
-          >
-            Let&apos;s Connect
-          </motion.button>
+          <a href='#contact'>
+            <motion.button
+              className='inline-flex bg-transparent border-2 border-blue-600 text-blue-600 px-6 py-3 rounded-full hover:bg-blue-600 hover:text-white transition-all cursor-pointer'
+              whileHover={{ scale: 1.05 }} // Scale up on hover
+              whileTap={{ scale: 0.95 }} // Scale down on tap
+              aria-label="Let's Connect"
+            >
+              Let&apos;s Connect
+            </motion.button>
+          </a>
         </motion.div>
       </motion.div>
     </div>

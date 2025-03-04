@@ -1,5 +1,13 @@
 'use client'
 import React from 'react'
+import {
+  BookOpen,
+  Camera,
+  Table,
+  Goal,
+  Badminton,
+  Languages
+} from 'lucide-react'
 
 const books = [
   {
@@ -102,32 +110,74 @@ const books = [
   }
 ]
 
+const hobbies = [
+  { name: 'Photography', icon: '📷' },
+  { name: 'Reading', icon: '📖' },
+  { name: 'Badminton', icon: '🏸' },
+  { name: 'Table Tennis', icon: '🏓' },
+  { name: 'Cricket', icon: '🏏' }
+]
+
+const languages = ['English', 'Bangla', 'Turkish']
+
 const MyReads = () => {
   return (
-    <div className='min-h-screen  py-10 px-4'>
-      <h2 className='text-center font-[Calistoga] text-2xl font-semibold text-slate-200 mb-6'>
+    <div className='min-h-screen py-10 px-4'>
+      {/* My Reads Section */}
+      <h2 className='text-center font-[Calistoga] text-3xl font-semibold text-slate-200 mb-6'>
         My Reads
       </h2>
-      <div className='flex flex-wrap justify-center gap-4 mb-0.5'>
+      <div className='flex flex-wrap justify-center gap-6 mb-10'>
         {books.map((book) => (
           <div
             key={book.id}
-            className='w-36 bg-slate-800 rounded-lg shadow p-2 text-center transform transition-all hover:scale-105'
+            className='w-40 bg-slate-800 rounded-lg shadow-lg p-3 text-center transition-all hover:scale-105'
           >
             <img
               src={book.image}
               alt={book.title}
-              className='w-full h-24 object-cover rounded-lg mb-2'
+              className='w-full h-32 object-cover rounded-lg mb-3'
               onError={(e) =>
                 (e.target.src = 'https://via.placeholder.com/150?text=No+Cover')
               }
             />
-            <h3 className='text-base font-medium text-slate-200'>
-              {book.title}
-            </h3>
+            <h3 className='text-sm font-medium text-slate-200'>{book.title}</h3>
             <p className='text-slate-400 text-xs'>by {book.author}</p>
           </div>
         ))}
+      </div>
+
+      {/* Hobbies Section */}
+      <div className='mx-auto max-w-md bg-gradient-to-r from-slate-700 to-slate-900 rounded-lg p-6 shadow-md text-center'>
+        <h3 className='text-xl font-semibold text-slate-200 mb-4'>Hobbies</h3>
+        <div className='flex flex-wrap justify-center gap-3'>
+          {hobbies.map((hobby, index) => (
+            <div
+              key={index}
+              className='flex items-center gap-2 px-4 py-2 bg-slate-900 text-slate-300 rounded-full shadow-sm hover:bg-slate-700 transition'
+            >
+              <span>{hobby.icon}</span>
+              <span className='text-sm'>{hobby.name}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Languages Section */}
+      <div className='mx-auto max-w-md bg-gradient-to-r from-slate-900 to-slate-700 rounded-lg p-6 shadow-md text-center mt-6'>
+        <h3 className='text-xl font-semibold text-slate-200 mb-4 flex items-center justify-center gap-2'>
+          🌍 Languages I Know
+        </h3>
+        <div className='flex flex-wrap justify-center gap-3'>
+          {languages.map((language, index) => (
+            <span
+              key={index}
+              className='px-4 py-2 bg-slate-900 text-slate-300 rounded-full shadow-sm hover:bg-slate-700 transition text-sm'
+            >
+              {language}
+            </span>
+          ))}
+        </div>
       </div>
     </div>
   )
