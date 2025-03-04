@@ -1,135 +1,116 @@
 'use client'
-import React from 'react'
-import { motion } from 'framer-motion'
-import Image from 'next/image'
+import { FaUser, FaGraduationCap, FaBriefcase, FaCode } from 'react-icons/fa'
 
-// Framer Motion Variants
-const fadeIn = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: 'easeOut' } }
-}
-
-const About = () => {
+const AboutPage = () => {
   return (
-    <div className='container mx-auto px-6 py-16 text-white'>
-      <motion.h1
-        className='text-4xl font-bold text-center mb-6 font-[Calistoga]'
-        initial='hidden'
-        whileInView='visible'
-        viewport={{ once: true }}
-        variants={fadeIn}
-      >
-        About Me
-      </motion.h1>
-      <motion.p
-        className='text-center text-gray-300 max-w-2xl mx-auto mb-12'
-        initial='hidden'
-        whileInView='visible'
-        viewport={{ once: true }}
-        variants={fadeIn}
-      >
-        Passionate Frontend Developer crafting seamless user experiences with
-        modern technologies.
-      </motion.p>
-      <div className='flex flex-col md:flex-row gap-12 items-center backdrop-blur-md p-8 rounded-xl shadow-2xl'>
-        {/* Image Section */}
-        <motion.div
-          className='relative w-full h-96 md:h-[500px] flex items-center justify-center overflow-hidden rounded-xl shadow-lg group'
-          initial='hidden'
-          whileInView='visible'
-          viewport={{ once: true }}
-          variants={fadeIn}
-        >
-          <Image
-            src='/images/Fuad.png' // Updated profile picture
-            alt='Profile Picture - Fuad'
-            width={400} // Larger width
-            height={400} // Larger height
-            className='object-cover rounded-full border-4 border-blue-500 transition-transform duration-500 group-hover:scale-105'
-          />
-        </motion.div>
-
-        {/* Bio Section */}
-        <motion.div
-          className='space-y-6 text-center md:text-left'
-          initial='hidden'
-          whileInView='visible'
-          viewport={{ once: true }}
-          variants={fadeIn}
-        >
-          <h2 className='text-3xl font-bold bg-gradient-to-r from-blue-500 to-purple-500 bg-clip-text text-transparent'>
-            Hi, I'm Salah Akram Fuad 👋
-          </h2>
-          <p className='text-gray-300 text-lg'>
-            I'm a passionate frontend developer with a love for building sleek,
-            responsive, and high-performance web applications. I specialize in
-            modern web technologies like React, Next.js, and Tailwind CSS.
-          </p>
-          <p className='text-gray-300 text-lg'>
-            My journey started with a curiosity for coding, and today, I bring
-            ideas to life through engaging digital experiences.
-          </p>
-          <a
-            href='#contact'
-            className='inline-block bg-gradient-to-r from-blue-600 to-purple-600 text-white px-8 py-3 rounded-full hover:from-blue-700 hover:to-purple-700 transition-all transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2'
-            aria-label='Contact Fuad'
-          >
-            Let's Connect →
-          </a>
-        </motion.div>
-      </div>
-      {/* Skills Section */}
-      <motion.div
-        className='mt-16'
-        initial='hidden'
-        whileInView='visible'
-        viewport={{ once: true }}
-        variants={fadeIn}
-      >
-        <h2 className='text-3xl font-semibold text-center mb-6'>My Skills</h2>
-        <div className='flex flex-wrap justify-center gap-4'>
-          {[
-            'HTML',
-            'CSS',
-            'JavaScript',
-            'React',
-            'Next.js',
-            'Tailwind CSS',
-            'Framer Motion',
-            'Git',
-            'Responsive Design'
-          ].map((skill, index) => (
-            <motion.span
-              key={index}
-              className='bg-slate-800 px-4 py-2 rounded-md text-sm font-medium text-white border border-slate-700 cursor-pointer'
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.9 }}
-              aria-label={`Skill: ${skill}`}
-            >
-              {skill}
-            </motion.span>
-          ))}
+    <section className='min-h-screen py-16 px-6 sm:px-10 lg:px-20' id='about '>
+      <div className='max-w-4xl mx-auto bg-transparent rounded-xl shadow-lg p-10'>
+        {/* Profile Section */}
+        <div className='text-center mb-12'>
+          <div className='w-36 h-36 mx-auto mb-6 rounded-full overflow-hidden border-4 border-indigo-500 shadow-lg'>
+            <img
+              src='/images/Fuad.png' // Replace with your actual profile link
+              alt='Profile'
+              className='w-full h-full object-cover'
+            />
+          </div>
+          <h1 className='text-4xl font-bold text-gray-200'>
+            Mohammad Salah Akram Fuad
+          </h1>
+          <p className='text-lg text-gray-400'>Full stack Developer</p>
         </div>
-      </motion.div>
-      {/* Fun Facts Section */}
-      <motion.div
-        className='mt-16 text-center'
-        initial='hidden'
-        whileInView='visible'
-        viewport={{ once: true }}
-        variants={fadeIn}
-      >
-        <h2 className='text-3xl font-semibold mb-6'>Fun Facts About Me</h2>
-        <p className='text-gray-300 max-w-xl mx-auto space-y-2'>
-          <span>🚀 I started coding at 16!</span>
-          <br />
-          <span>🎨 I love designing smooth and interactive UI/UX.</span>
-          <br />
-          <span>☕ Fuelled by coffee and late-night coding sessions.</span>
-        </p>
-      </motion.div>
-    </div>
+
+        {/* About Me */}
+        <div className='mb-10'>
+          <h2 className='text-2xl font-bold text-gray-200 mb-4 flex items-center'>
+            <FaUser className='mr-3 text-indigo-500' /> About Me
+          </h2>
+          <p className='text-gray-300 leading-relaxed'>
+            I'm a passionate frontend developer with 2 years of experience in
+            building sleek, modern web applications. I specialize in Next Js,
+            JavaScript, and Tailwind CSS, with a keen eye for UI/UX design. When
+            I'm not coding, I love exploring new technologies and contributing
+            to open-source projects.
+          </p>
+        </div>
+
+        {/* Education */}
+        <div className='mb-10'>
+          <h2 className='text-2xl font-bold text-gray-200 mb-4 flex items-center'>
+            <FaGraduationCap className='mr-3 text-indigo-500' /> Education
+          </h2>
+          <div className='space-y-4'>
+            {[
+              {
+                degree: "Bachelor's in Computer Science and Engineering",
+                school: 'BRAC University | 2021 - 2025'
+              }
+            ].map(({ degree, school }) => (
+              <div
+                key={degree}
+                className='p-4 bg-slate-700 rounded-lg shadow-sm'
+              >
+                <h3 className='font-semibold text-gray-200'>{degree}</h3>
+                <p className='text-gray-400'>{school}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Experience */}
+        <div className='mb-10'>
+          <h2 className='text-2xl font-bold text-gray-200 mb-4 flex items-center'>
+            <FaBriefcase className='mr-3 text-indigo-500' /> Experience
+          </h2>
+          <div className='space-y-4'>
+            {[
+              {
+                title: 'Frontend Developer',
+                company: 'International Hope Company LTD | 2024-2025'
+              }
+            ].map(({ title, company }) => (
+              <div
+                key={title}
+                className='p-4 bg-slate-700 rounded-lg shadow-sm'
+              >
+                <h3 className='font-semibold text-gray-200'>{title}</h3>
+                <p className='text-gray-400'>{company}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Skills */}
+        <div>
+          <h2 className='text-2xl font-bold text-gray-200 mb-4 flex items-center'>
+            <FaCode className='mr-3 text-indigo-500' /> Skills
+          </h2>
+          <div className='grid grid-cols-2 md:grid-cols-3 gap-4'>
+            {[
+              'React',
+              'TypeScript',
+              'JavaScript',
+              'Tailwind CSS',
+              'Next.js',
+              'MySQL',
+
+              'Drizzle',
+              'Shadcn',
+              'PostgressSQL',
+              'GitHub'
+            ].map((skill) => (
+              <div
+                key={skill}
+                className='p-3 text-center bg-slate-700 text-gray-200 font-medium rounded-lg shadow-md'
+              >
+                {skill}
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
   )
 }
 
-export default About
+export default AboutPage

@@ -6,25 +6,27 @@ import Image from 'next/image'
 // Sample projects data with images
 const projects = [
   {
-    title: 'AI Startup Landing Page',
-    description: 'A sleek, modern AI-based startup landing page.',
-    image: '/images/ai-startup-landing-page.png',
-    link: '#',
+    title: 'International Hope School Bangladesh',
+    description: 'Redesigned the school website using Next js , Tailwind CSS',
+    image: '/images/school.png',
+    link: 'https://ihsbhostel.vercel.app/',
+    year: '2024'
+  },
+
+  {
+    title: 'Library Management System',
+    description:
+      'An online platform that provides access to a collection of books and resources for students and faculty. It offers a user-friendly interface for browsing, searching, and managing library materials efficiently.',
+    image: '/images/library.png',
+    link: 'https://ihsblibrary.vercel.app/',
     year: '2025'
   },
   {
-    title: 'Dark SaaS Landing Page',
-    description: 'A professional and elegant dark-themed SaaS landing page.',
-    image: '/images/dark-saas-landing-page.png',
-    link: '#',
-    year: '2025'
-  },
-  {
-    title: 'Creative Portfolio',
-    description: 'A minimal and aesthetic portfolio website.',
-    image: '/images/creative-portfolio.png',
-    link: '#',
-    year: '2025'
+    title: 'Healthe Care Management System',
+    description: 'A professional platform for a healcare system',
+    image: '/images/Healthcare.png',
+    link: 'https://healthcare-lyart.vercel.app/',
+    year: '2024'
   }
 ]
 
