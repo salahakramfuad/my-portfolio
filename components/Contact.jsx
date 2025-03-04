@@ -6,7 +6,8 @@ import {
   FaMapMarkerAlt,
   FaLinkedin,
   FaGithub,
-  FaTwitter
+  FaTwitter,
+  FaFacebook
 } from 'react-icons/fa'
 
 // Contact Info Card
@@ -44,13 +45,13 @@ const SocialLinks = () => (
       <FaGithub />
     </a>
     <a
-      href='https://twitter.com/yourusername'
+      href='https://facebook.com/salahakramfuad'
       target='_blank'
       rel='noopener noreferrer'
       aria-label='Twitter'
       className='text-xl text-slate-400 hover:text-[#625ffb] transition-colors'
     >
-      <FaTwitter />
+      <FaFacebook />
     </a>
   </div>
 )
