@@ -3,7 +3,7 @@ import { FaUser, FaGraduationCap, FaBriefcase, FaCode } from 'react-icons/fa'
 
 const AboutPage = () => {
   return (
-    <section className='min-h-screen py-16 px-6 sm:px-10 lg:px-20' id='about '>
+    <section className='min-h-screen py-16 px-6 sm:px-10 lg:px-20' id='about'>
       <div className='max-w-4xl mx-auto bg-transparent rounded-xl shadow-lg p-10'>
         {/* Profile Section */}
         <div className='text-center mb-12'>

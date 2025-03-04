@@ -58,8 +58,9 @@ const SocialLinks = () => (
 const ContactFooter = () => {
   return (
     <footer
-      className='bg-slate-900 py-12 px-4'
+      className='bg-slate-900 py-12 px-4 bg-cover bg-center'
       style={{ backgroundImage: 'url(/images/footer.svg)' }}
+      id='contact'
     >
       <div className='max-w-3xl mx-auto text-center space-y-8'>
         {/* Heading */}
@@ -68,7 +69,7 @@ const ContactFooter = () => {
         </h2>
 
         {/* Contact Cards */}
-        <div className='space-y-4 flex justify-between'>
+        <div className='flex flex-col sm:flex-row justify-center items-center sm:items-start gap-6 text-center'>
           <ContactCard
             icon={<FaEnvelope />}
             title='Email'

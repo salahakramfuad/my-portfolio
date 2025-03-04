@@ -31,7 +31,10 @@ export const Hero = () => {
   }
 
   return (
-    <div className='min-h-screen flex flex-col justify-center items-center py-20 relative font-sans'>
+    <div
+      className='min-h-screen flex flex-col justify-center items-center py-20 relative font-sans'
+      id='hero'
+    >
       {/* Background Image */}
       <div
         className='absolute inset-0 bg-cover bg-center opacity-20 top-5'
