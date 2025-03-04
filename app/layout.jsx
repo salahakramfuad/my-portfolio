@@ -23,7 +23,7 @@ const calistoga = Calistoga({
 })
 
 export const metadata = {
-  title: 'My Portfolio',
+  title: 'Mohammad Salah Akram Fuad',
   description: 'A stunning portfolio website showcasing my skills and projects.'
 }
 
