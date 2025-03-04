@@ -51,7 +51,7 @@ export const Hero = () => {
           animate='float'
         >
           <Image
-            src='/images/fuad.png'
+            src='/images/logo.png'
             alt='My picture'
             className='rounded-full shadow-lg'
             width={300}
