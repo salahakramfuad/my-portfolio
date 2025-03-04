@@ -31,7 +31,7 @@ const About = () => {
         Passionate Frontend Developer crafting seamless user experiences with
         modern technologies.
       </motion.p>
-      <div className='flex flex-col md:flex-row gap-12 items-center bg-slate-900 backdrop-blur-md p-8 rounded-xl shadow-2xl'>
+      <div className='flex flex-col md:flex-row gap-12 items-center backdrop-blur-md p-8 rounded-xl shadow-2xl'>
         {/* Image Section */}
         <motion.div
           className='relative w-full h-96 md:h-[500px] flex items-center justify-center overflow-hidden rounded-xl shadow-lg group'
