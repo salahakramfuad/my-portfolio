@@ -76,7 +76,7 @@ export const Hero = () => {
           className='text-3xl font-[Calistoga] sm:text-5xl font-bold text-white mb-6 tracking-tight' // ✅ Fixed
           variants={itemVariants}
         >
-          Building exceptional user experiences
+          Mohammad Salah Akram Fuad
         </motion.h1>
 
         {/* Description */}
