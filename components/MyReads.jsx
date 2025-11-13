@@ -5,10 +5,11 @@ import {
   Camera,
   Table,
   Goal,
-  Badminton,
-  Languages
+  Badge as BadmintonIcon,
+  Languages as LanguagesIcon
 } from 'lucide-react'
 
+/** ---------- Data ---------- */
 const books = [
   {
     id: 1,
@@ -111,76 +112,237 @@ const books = [
 ]
 
 const hobbies = [
-  { name: 'Photography', icon: '📷' },
-  { name: 'Reading', icon: '📖' },
-  { name: 'Badminton', icon: '🏸' },
-  { name: 'Table Tennis', icon: '🏓' },
-  { name: 'Cricket', icon: '🏏' }
+  { name: 'Photography', icon: <Camera className='h-4 w-4' /> },
+  { name: 'Reading', icon: <BookOpen className='h-4 w-4' /> },
+  { name: 'Badminton', icon: <BadmintonIcon className='h-4 w-4' /> },
+  { name: 'Table Tennis', icon: <Table className='h-4 w-4' /> },
+  { name: 'Cricket', icon: <Goal className='h-4 w-4' /> }
 ]
 
 const languages = ['English', 'Bangla', 'Turkish']
 
-const MyReads = () => {
+const placeholder = 'https://via.placeholder.com/300x420?text=No+Cover'
+const cx = (...c) => c.filter(Boolean).join(' ')
+
+/** ---------- Component ---------- */
+export default function MyReads() {
   return (
-    <div className='min-h-screen py-10 px-4'>
-      {/* My Reads Section */}
-      <h2 className='text-center font-[Calistoga] text-3xl font-semibold text-slate-200 mb-6'>
-        My Reads
-      </h2>
-      <div className='flex flex-wrap justify-center gap-6 mb-10'>
-        {books.map((book) => (
+    <section className='min-h-screen w-full mv-scope relative'>
+      {/* Scoped theme variables (Midnight Violet) */}
+      <style jsx>{`
+        .mv-scope {
+          --primary: #6d28d9;
+          --accent: #8b5cf6;
+          --surface: rgba(255, 255, 255, 0.05);
+          --border: rgba(255, 255, 255, 0.1);
+          --ink: rgba(255, 255, 255, 0.18);
+          --text: #f1f5f9;
+        }
+        :global(.light) .mv-scope {
+          --text: #1e1b4b;
+          --surface: #f5f3ff;
+          --border: rgba(0, 0, 0, 0.08);
+          --ink: rgba(0, 0, 0, 0.14);
+        }
+      `}</style>
+
+      {/* Background grid */}
+      <div
+        className='pointer-events-none absolute inset-0 -z-10 opacity-[0.06]'
+        style={{
+          backgroundImage: `linear-gradient(to right, var(--ink) 1px, transparent 1px),
+             linear-gradient(to bottom, var(--ink) 1px, transparent 1px)`,
+          backgroundSize: '34px 34px',
+          maskImage: 'radial-gradient(70% 60% at 50% 40%, black, transparent)',
+          WebkitMaskImage:
+            'radial-gradient(70% 60% at 50% 40%, black, transparent)'
+        }}
+      />
+
+      <div className='mx-auto max-w-7xl px-6 py-12 sm:px-8'>
+        {/* Title */}
+        <header className='mb-10 text-center'>
           <div
-            key={book.id}
-            className='w-40 bg-slate-800 rounded-lg shadow-lg p-3 text-center transition-all hover:scale-105'
+            className='mx-auto inline-flex items-center gap-3 rounded-full px-4 py-2 backdrop-blur-md'
+            style={{
+              border: `1px solid var(--border)`,
+              background: 'var(--surface)',
+              color: 'var(--text)'
+            }}
           >
-            <img
-              src={book.image}
-              alt={book.title}
-              className='w-full h-32 object-cover rounded-lg mb-3'
-              onError={(e) =>
-                (e.target.src = 'https://via.placeholder.com/150?text=No+Cover')
-              }
-            />
-            <h3 className='text-sm font-medium text-slate-200'>{book.title}</h3>
-            <p className='text-slate-400 text-xs'>by {book.author}</p>
+            <BookOpen className='h-4 w-4' aria-hidden />
+            <span className='text-xs'>Curated shelf & interests</span>
           </div>
-        ))}
-      </div>
+          <h2
+            className='mt-4 font-[Calistoga] text-3xl font-semibold tracking-tight sm:text-4xl'
+            style={{ color: 'var(--text)' }}
+          >
+            My Reads
+          </h2>
+          <p className='mx-auto mt-2 max-w-2xl text-slate-300'>
+            A selection of books I’ve enjoyed recently—hover for a quick note.
+          </p>
+        </header>
 
-      {/* Hobbies Section */}
-      <div className='mx-auto max-w-md bg-gradient-to-r from-slate-700 to-slate-900 rounded-lg p-6 shadow-md text-center'>
-        <h3 className='text-xl font-semibold text-slate-200 mb-4'>Hobbies</h3>
-        <div className='flex flex-wrap justify-center gap-3'>
-          {hobbies.map((hobby, index) => (
-            <div
-              key={index}
-              className='flex items-center gap-2 px-4 py-2 bg-slate-900 text-slate-300 rounded-full shadow-sm hover:bg-slate-700 transition'
+        {/* Books grid */}
+        <div
+          className={cx(
+            'grid gap-6',
+            'grid-cols-[repeat(auto-fit,minmax(160px,1fr))]'
+          )}
+        >
+          {books.map((b) => (
+            <article
+              key={b.id}
+              className='group relative overflow-hidden rounded-2xl shadow-xl transition-all hover:-translate-y-1 hover:shadow-2xl'
+              style={{
+                border: `1px solid var(--border)`,
+                background: 'var(--surface)',
+                boxShadow: '0 10px 30px rgba(0,0,0,.28)'
+              }}
+              aria-label={`${b.title} by ${b.author}`}
             >
-              <span>{hobby.icon}</span>
-              <span className='text-sm'>{hobby.name}</span>
+              {/* Cover (3:4) */}
+              <div
+                className='relative w-full overflow-hidden rounded-t-2xl bg-slate-900'
+                style={{ aspectRatio: '3 / 4' }}
+              >
+                <img
+                  src={b.image}
+                  alt={`${b.title} — cover`}
+                  loading='lazy'
+                  onError={(e) => {
+                    e.currentTarget.src = placeholder
+                  }}
+                  className='h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.04]'
+                />
+                <div className='pointer-events-none absolute inset-0 bg-gradient-to-t from-black/70 via-black/0 to-transparent opacity-80' />
+                <div className='absolute inset-x-0 bottom-0 translate-y-2 px-3 pb-3 opacity-0 transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100'>
+                  <p className='text-xs leading-snug text-slate-200'>
+                    {b.review}
+                  </p>
+                </div>
+              </div>
+
+              {/* Meta */}
+              <div className='p-3'>
+                <h3
+                  className='line-clamp-2 text-sm font-semibold'
+                  style={{ color: 'var(--text)' }}
+                >
+                  {b.title}
+                </h3>
+                <p className='mt-1 text-xs text-slate-400'>by {b.author}</p>
+              </div>
+
+              {/* Violet glow on hover */}
+              <span
+                aria-hidden
+                className='pointer-events-none absolute inset-0 rounded-2xl opacity-0 transition-opacity duration-300 group-hover:opacity-100'
+                style={{
+                  background: `linear-gradient(135deg, var(--primary)3d, var(--accent)38)`
+                }}
+              />
+            </article>
+          ))}
+        </div>
+
+        {/* Hobbies & Languages */}
+        <div className='mt-12 grid grid-cols-1 gap-6 lg:grid-cols-2'>
+          {/* Hobbies */}
+          <section
+            className='rounded-3xl p-6 shadow-xl backdrop-blur-lg'
+            aria-labelledby='hobbies-heading'
+            style={{
+              border: `1px solid var(--border)`,
+              background: 'var(--surface)'
+            }}
+          >
+            <div className='mb-4 flex items-center gap-2'>
+              <span
+                className='inline-flex h-7 w-7 items-center justify-center rounded-full'
+                style={{
+                  background:
+                    'color-mix(in oklab, var(--primary) 15%, transparent)',
+                  color: 'var(--accent)'
+                }}
+              >
+                <Camera className='h-4 w-4' aria-hidden />
+              </span>
+              <h3
+                id='hobbies-heading'
+                className='text-xl font-semibold'
+                style={{ color: 'var(--text)' }}
+              >
+                Hobbies
+              </h3>
             </div>
-          ))}
-        </div>
-      </div>
 
-      {/* Languages Section */}
-      <div className='mx-auto max-w-md bg-gradient-to-r from-slate-900 to-slate-700 rounded-lg p-6 shadow-md text-center mt-6'>
-        <h3 className='text-xl font-semibold text-slate-200 mb-4 flex items-center justify-center gap-2'>
-          🌍 Languages I Know
-        </h3>
-        <div className='flex flex-wrap justify-center gap-3'>
-          {languages.map((language, index) => (
-            <span
-              key={index}
-              className='px-4 py-2 bg-slate-900 text-slate-300 rounded-full shadow-sm hover:bg-slate-700 transition text-sm'
-            >
-              {language}
-            </span>
-          ))}
+            <div className='flex flex-wrap gap-3'>
+              {hobbies.map((h, i) => (
+                <span
+                  key={`${h.name}-${i}`}
+                  className='inline-flex items-center gap-2 rounded-full px-3 py-2 text-sm font-medium shadow-sm backdrop-blur-md transition-colors hover:bg-white/10'
+                  style={{
+                    border: `1px solid var(--border)`,
+                    background: 'var(--surface)',
+                    color: 'var(--text)'
+                  }}
+                >
+                  <span className='text-slate-200'>{h.icon}</span>
+                  {h.name}
+                </span>
+              ))}
+            </div>
+          </section>
+
+          {/* Languages */}
+          <section
+            className='rounded-3xl p-6 shadow-xl backdrop-blur-lg'
+            aria-labelledby='languages-heading'
+            style={{
+              border: `1px solid var(--border)`,
+              background: 'var(--surface)'
+            }}
+          >
+            <div className='mb-4 flex items-center gap-2'>
+              <span
+                className='inline-flex h-7 w-7 items-center justify-center rounded-full'
+                style={{
+                  background:
+                    'color-mix(in oklab, var(--primary) 15%, transparent)',
+                  color: 'var(--accent)'
+                }}
+              >
+                <LanguagesIcon className='h-4 w-4' aria-hidden />
+              </span>
+              <h3
+                id='languages-heading'
+                className='text-xl font-semibold'
+                style={{ color: 'var(--text)' }}
+              >
+                Languages I Know
+              </h3>
+            </div>
+
+            <div className='flex flex-wrap gap-3'>
+              {languages.map((lang) => (
+                <span
+                  key={lang}
+                  className='rounded-full px-3 py-2 text-sm font-medium shadow-sm backdrop-blur-md transition-colors hover:bg-white/10'
+                  style={{
+                    border: `1px solid var(--border)`,
+                    background: 'var(--surface)',
+                    color: 'var(--text)'
+                  }}
+                >
+                  {lang}
+                </span>
+              ))}
+            </div>
+          </section>
         </div>
       </div>
-    </div>
+    </section>
   )
 }
-
-export default MyReads

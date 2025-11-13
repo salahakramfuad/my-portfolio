@@ -35,7 +35,7 @@ export default function RootLayout({ children }) {
         <meta name='viewport' content='width=device-width, initial-scale=1.0' />
       </head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} ${inter.variable} ${calistoga.variable} bg-gray-900 text-white antialiased font-sans`}
+        className={`${geistSans.variable} ${geistMono.variable} ${inter.variable} ${calistoga.variable} bg-gray-900 text-white antialiased font-sans scroll-smooth`}
       >
         {children}
       </body>
