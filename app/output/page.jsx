@@ -91,7 +91,7 @@ export default function FirebaseOutputPage() {
               Add Items
             </a>
             <a
-              href='/student-input'
+              href='/student'
               className='font-medium text-sky-600 hover:text-sky-700 underline underline-offset-4'
             >
               Add Students
