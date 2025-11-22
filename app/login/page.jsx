@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { auth } from '../../lib/firebase' // 🔁 adjust if your path is different
+import { auth } from '../../lib/firebase'
 import {
   onAuthStateChanged,
   createUserWithEmailAndPassword,
@@ -26,6 +26,13 @@ export default function LoginPage() {
     })
     return () => unsub()
   }, [])
+
+  // 🔁 Always redirect logged-in + verified users to /output
+  useEffect(() => {
+    if (!loading && user && user.emailVerified) {
+      window.location.href = '/output'
+    }
+  }, [loading, user])
 
   const resetFeedback = () => {
     setMessage('')
@@ -56,10 +63,10 @@ export default function LoginPage() {
         setMessage(
           'Your email is not verified yet. Please check your inbox and verify.'
         )
-        // Optional: force sign out if not verified
-        await signOut(auth)
+        await signOut(auth) // optional: force logout if not verified
       } else {
-        setMessage('Login successful! 🎉')
+        // this will also be handled by the effect, but keeps UX snappy
+        window.location.href = '/output'
       }
     } catch (err) {
       console.error(err)
