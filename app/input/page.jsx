@@ -1,9 +1,11 @@
 'use client'
 
-import { useState } from 'react'
-import { db, storage } from '../../lib/firebase'
+import { useState, useEffect } from 'react'
+import { useRouter } from 'next/navigation'
+import { db, storage, auth } from '../../lib/firebase'
 import { addDoc, collection, serverTimestamp } from 'firebase/firestore'
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage'
+import { onAuthStateChanged, signOut } from 'firebase/auth'
 
 const EMPTY_ROW = {
   name: '',
@@ -19,6 +21,31 @@ export default function FirebaseInputPage() {
   const [rows, setRows] = useState([{ ...EMPTY_ROW }])
   const [saving, setSaving] = useState(false)
   const [status, setStatus] = useState(null)
+  const [checkingAuth, setCheckingAuth] = useState(true)
+
+  const router = useRouter()
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (!user) {
+        router.replace('/')
+      } else {
+        setCheckingAuth(false)
+      }
+    })
+
+    return () => unsubscribe()
+  }, [router])
+
+  const handleLogout = async () => {
+    try {
+      await signOut(auth)
+      router.replace('/')
+    } catch (err) {
+      console.error(err)
+      setStatus('❌ Failed to log out. Please try again.')
+    }
+  }
 
   const updateRow = (index, field, value) => {
     setRows((prev) => {
@@ -40,7 +67,6 @@ export default function FirebaseInputPage() {
 
   const handleImageChange = async (index, file) => {
     if (!file) return
-    // mark uploading
     updateRow(index, 'uploading', true)
     try {
       const fileRef = ref(storage, `testItems/${Date.now()}-${file.name}`)
@@ -93,6 +119,14 @@ export default function FirebaseInputPage() {
     }
   }
 
+  if (checkingAuth) {
+    return (
+      <main className='min-h-screen flex items-center justify-center bg-slate-50'>
+        <p className='text-sm text-slate-600'>Checking authentication…</p>
+      </main>
+    )
+  }
+
   return (
     <main className='min-h-screen bg-slate-50 flex items-center justify-center px-4 py-10'>
       <div className='w-full max-w-5xl rounded-2xl bg-white shadow-lg border border-slate-200 p-6 md:p-8'>
@@ -107,12 +141,22 @@ export default function FirebaseInputPage() {
               <code className='font-mono'>testItems</code> collection.
             </p>
           </div>
-          <a
-            href='/output'
-            className='text-sm font-medium text-sky-600 hover:text-sky-700 underline underline-offset-4'
-          >
-            View Output Table
-          </a>
+
+          <div className='flex items-center gap-3'>
+            <a
+              href='/output'
+              className='text-sm font-medium text-sky-600 hover:text-sky-700 underline underline-offset-4'
+            >
+              View Output Table
+            </a>
+            <button
+              type='button'
+              onClick={handleLogout}
+              className='inline-flex items-center rounded-lg border border-slate-300 bg-white px-3 py-1.5 text-xs font-medium text-slate-700 hover:bg-slate-50'
+            >
+              Log out
+            </button>
+          </div>
         </div>
 
         <form onSubmit={handleSaveAll} className='mt-6 space-y-4'>
