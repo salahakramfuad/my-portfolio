@@ -32,7 +32,7 @@ export default function AboutPage() {
         'Building an Airbnb-style marketplace with listings, search, booking, and messaging flows.',
       stack: ['React', 'Next.js', 'Tailwind CSS', 'Framer Motion'],
       links: {
-        site: 'https://www.hope-ttc.vercel.app',
+        site: 'https://www.hopettc.com',
         repo: null,
         caseStudy: null
       }
