@@ -18,7 +18,7 @@ const projects = [
     description:
       'Conversion-focused site for an education provider, built on Next.js.',
     image: '/images/hope-ttc.png',
-    link: 'https://hope-ttc.vercel.app/',
+    link: 'hopettc.com',
     year: '2025'
   },
   {
