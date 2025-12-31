@@ -65,7 +65,7 @@ export default function Hero() {
                   boxShadow: '0 12px 30px rgba(139,92,246,.35)'
                 }}
               >
-                Explore my work →
+                Explore my work  here→
               </a>
               <a
                 href='#contact'
