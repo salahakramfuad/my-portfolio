@@ -28,7 +28,7 @@ export default function FirebaseInputPage() {
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (!user) {
-        router.replace('/')
+        router.replace('/login')
       } else {
         setCheckingAuth(false)
       }
