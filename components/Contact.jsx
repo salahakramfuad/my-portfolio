@@ -39,7 +39,7 @@ const ContactFooter = () => {
         {/* Section Header */}
         <div className='text-center mb-16'>
           <h2 className='text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-white mb-4'>
-            Get in <span className='bg-gradient-to-r from-cyan-400 to-teal-400 bg-clip-text text-transparent'>Touch</span>
+            Get in <span className='text-blue-400'>Touch</span>
           </h2>
           <p className='text-xl text-slate-400 max-w-2xl mx-auto'>
             Let's collaborate on your next project. I'm always open to new opportunities.
@@ -50,13 +50,13 @@ const ContactFooter = () => {
         <div className='grid md:grid-cols-3 gap-6 mb-12'>
           <a
             href='mailto:salahakramfuad@gmail.com'
-            className='group relative rounded-2xl border-2 border-cyan-500/20 p-8 backdrop-blur-xl transition-all hover:border-cyan-400/40 hover:scale-105'
+            className='group relative rounded-2xl border border-blue-500/20 p-8 backdrop-blur-xl transition-all hover:border-blue-400/40 hover:scale-105'
             style={{
-              background: 'rgba(6,182,212,0.1)',
+              background: 'rgba(59,130,246,0.05)',
               boxShadow: '0 10px 30px rgba(0,0,0,.3)'
             }}
           >
-            <div className='text-4xl text-cyan-400 mb-4 group-hover:scale-110 transition-transform'>
+            <div className='text-4xl text-blue-400 mb-4 group-hover:scale-110 transition-transform'>
               <FaEnvelope />
             </div>
             <h3 className='text-xl font-bold text-white mb-2'>Email</h3>
@@ -65,13 +65,13 @@ const ContactFooter = () => {
 
           <a
             href='tel:+8801538380532'
-            className='group relative rounded-2xl border-2 border-cyan-500/20 p-8 backdrop-blur-xl transition-all hover:border-cyan-400/40 hover:scale-105'
+            className='group relative rounded-2xl border border-blue-500/20 p-8 backdrop-blur-xl transition-all hover:border-blue-400/40 hover:scale-105'
             style={{
-              background: 'rgba(6,182,212,0.1)',
+              background: 'rgba(59,130,246,0.05)',
               boxShadow: '0 10px 30px rgba(0,0,0,.3)'
             }}
           >
-            <div className='text-4xl text-cyan-400 mb-4 group-hover:scale-110 transition-transform'>
+            <div className='text-4xl text-blue-400 mb-4 group-hover:scale-110 transition-transform'>
               <FaPhone />
             </div>
             <h3 className='text-xl font-bold text-white mb-2'>Phone</h3>
@@ -82,13 +82,13 @@ const ContactFooter = () => {
             href='https://www.google.com/maps/search/?q=Dhaka,Bangladesh'
             target='_blank'
             rel='noopener noreferrer'
-            className='group relative rounded-2xl border-2 border-cyan-500/20 p-8 backdrop-blur-xl transition-all hover:border-cyan-400/40 hover:scale-105'
+            className='group relative rounded-2xl border border-blue-500/20 p-8 backdrop-blur-xl transition-all hover:border-blue-400/40 hover:scale-105'
             style={{
-              background: 'rgba(6,182,212,0.1)',
+              background: 'rgba(59,130,246,0.05)',
               boxShadow: '0 10px 30px rgba(0,0,0,.3)'
             }}
           >
-            <div className='text-4xl text-cyan-400 mb-4 group-hover:scale-110 transition-transform'>
+            <div className='text-4xl text-blue-400 mb-4 group-hover:scale-110 transition-transform'>
               <FaMapMarkerAlt />
             </div>
             <h3 className='text-xl font-bold text-white mb-2'>Location</h3>
@@ -103,8 +103,8 @@ const ContactFooter = () => {
             target='_blank'
             rel='noopener noreferrer'
             aria-label='LinkedIn'
-            className='group rounded-xl border-2 border-cyan-500/30 p-4 text-2xl text-cyan-400 backdrop-blur-xl transition-all hover:bg-cyan-500/20 hover:border-cyan-400/50 hover:scale-110'
-            style={{ background: 'rgba(6,182,212,0.1)' }}
+            className='group rounded-xl border border-blue-500/30 p-4 text-2xl text-blue-400 backdrop-blur-xl transition-all hover:bg-blue-500/10 hover:border-blue-400/40 hover:scale-110'
+            style={{ background: 'rgba(59,130,246,0.05)' }}
           >
             <FaLinkedin />
           </a>
@@ -113,8 +113,8 @@ const ContactFooter = () => {
             target='_blank'
             rel='noopener noreferrer'
             aria-label='GitHub'
-            className='group rounded-xl border-2 border-cyan-500/30 p-4 text-2xl text-cyan-400 backdrop-blur-xl transition-all hover:bg-cyan-500/20 hover:border-cyan-400/50 hover:scale-110'
-            style={{ background: 'rgba(6,182,212,0.1)' }}
+            className='group rounded-xl border border-blue-500/30 p-4 text-2xl text-blue-400 backdrop-blur-xl transition-all hover:bg-blue-500/10 hover:border-blue-400/40 hover:scale-110'
+            style={{ background: 'rgba(59,130,246,0.05)' }}
           >
             <FaGithub />
           </a>
@@ -123,15 +123,15 @@ const ContactFooter = () => {
             target='_blank'
             rel='noopener noreferrer'
             aria-label='Facebook'
-            className='group rounded-xl border-2 border-cyan-500/30 p-4 text-2xl text-cyan-400 backdrop-blur-xl transition-all hover:bg-cyan-500/20 hover:border-cyan-400/50 hover:scale-110'
-            style={{ background: 'rgba(6,182,212,0.1)' }}
+            className='group rounded-xl border border-blue-500/30 p-4 text-2xl text-blue-400 backdrop-blur-xl transition-all hover:bg-blue-500/10 hover:border-blue-400/40 hover:scale-110'
+            style={{ background: 'rgba(59,130,246,0.05)' }}
           >
             <FaFacebook />
           </a>
         </div>
 
         {/* Copyright */}
-        <div className='text-center pt-8 border-t border-cyan-500/20'>
+        <div className='text-center pt-8 border-t border-blue-500/20'>
           <p className='text-slate-400'>
             © 2025 Mohammad Salah Akram Fuad. All rights reserved.
           </p>

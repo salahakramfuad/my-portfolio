@@ -11,8 +11,7 @@ export default function Hero() {
           className='absolute inset-0'
           style={{
             background:
-              'radial-gradient(ellipse 80% 50% at 50% 0%, rgba(6,182,212,0.15) 0%, transparent 70%),' +
-              'radial-gradient(ellipse 60% 50% at 50% 100%, rgba(8,145,178,0.12) 0%, transparent 70%)'
+              'radial-gradient(ellipse 80% 50% at 50% 0%, rgba(59,130,246,0.1) 0%, transparent 70%)'
           }}
         />
         <div
@@ -40,21 +39,21 @@ export default function Hero() {
               transition={{ duration: 0.6, delay: 0.2 }}
               className='inline-flex items-center gap-2 rounded-full border px-4 py-1.5 text-xs font-medium mb-6'
               style={{
-                borderColor: 'rgba(6,182,212,0.4)',
-                background: 'rgba(6,182,212,0.12)',
-                color: '#67e8f9'
+                borderColor: 'rgba(59,130,246,0.3)',
+                background: 'rgba(59,130,246,0.1)',
+                color: '#60a5fa'
               }}
             >
               <span className='relative flex h-2 w-2'>
-                <span className='animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75'></span>
-                <span className='relative inline-flex rounded-full h-2 w-2 bg-cyan-400'></span>
+                <span className='animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75'></span>
+                <span className='relative inline-flex rounded-full h-2 w-2 bg-blue-400'></span>
               </span>
               Available for new projects
             </motion.div>
 
             <h1 className='text-5xl sm:text-6xl lg:text-7xl font-bold tracking-tight text-white mb-6 leading-tight'>
               <span className='block'>Hello, I'm</span>
-              <span className='block bg-gradient-to-r from-cyan-400 via-teal-400 to-cyan-300 bg-clip-text text-transparent'>
+              <span className='block text-blue-400'>
                 Mohammad Salah
               </span>
               <span className='block'>Akram Fuad</span>
@@ -67,12 +66,12 @@ export default function Hero() {
             <div className='flex flex-wrap gap-4 mb-12'>
               <motion.a
                 href='#projects'
-                className='group inline-flex items-center gap-2 rounded-xl px-6 py-4 text-base font-semibold text-white outline-none focus-visible:ring-2 focus-visible:ring-cyan-400/70 transition-all'
+                className='group inline-flex items-center gap-2 rounded-xl px-6 py-4 text-base font-semibold text-white outline-none focus-visible:ring-2 focus-visible:ring-blue-400/70 transition-all'
                 style={{
-                  background: 'linear-gradient(135deg, #06b6d4, #0891b2)',
-                  boxShadow: '0 10px 40px rgba(6,182,212,.4)'
+                  background: '#3b82f6',
+                  boxShadow: '0 4px 12px rgba(59,130,246,.3)'
                 }}
-                whileHover={{ scale: 1.05, boxShadow: '0 15px 50px rgba(6,182,212,.5)' }}
+                whileHover={{ scale: 1.02, boxShadow: '0 6px 16px rgba(59,130,246,.4)' }}
                 whileTap={{ scale: 0.98 }}
               >
                 View My Work
@@ -82,10 +81,10 @@ export default function Hero() {
               </motion.a>
               <motion.a
                 href='#contact'
-                className='inline-flex items-center gap-2 rounded-xl border-2 px-6 py-4 text-base font-semibold text-slate-100 outline-none focus-visible:ring-2 focus-visible:ring-cyan-400/70 transition-all hover:bg-white/5'
+                className='inline-flex items-center gap-2 rounded-xl border-2 px-6 py-4 text-base font-semibold text-slate-100 outline-none focus-visible:ring-2 focus-visible:ring-blue-400/70 transition-all hover:bg-white/5'
                 style={{
-                  borderColor: 'rgba(6,182,212,0.5)',
-                  background: 'rgba(6,182,212,0.05)'
+                  borderColor: 'rgba(59,130,246,0.4)',
+                  background: 'rgba(59,130,246,0.05)'
                 }}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.98 }}
@@ -104,8 +103,8 @@ export default function Hero() {
                   transition={{ duration: 0.4, delay: 0.5 + i * 0.1 }}
                   className='rounded-lg border px-4 py-2 text-sm font-medium text-slate-300'
                   style={{
-                    borderColor: 'rgba(6,182,212,0.3)',
-                    background: 'rgba(6,182,212,0.08)'
+                    borderColor: 'rgba(59,130,246,0.3)',
+                    background: 'rgba(59,130,246,0.08)'
                   }}
                 >
                   {tech}
@@ -124,15 +123,14 @@ export default function Hero() {
             <div className='relative'>
               {/* Glow effect */}
               <div
-                className='absolute -inset-8 rounded-[3rem] blur-3xl opacity-60'
+                className='absolute -inset-8 rounded-[3rem] blur-3xl opacity-40'
                 style={{
-                  background:
-                    'conic-gradient(from 180deg at 50% 50%, rgba(6,182,212,0.4), rgba(8,145,178,0.3), rgba(34,211,238,0.4), rgba(6,182,212,0.4))'
+                  background: 'rgba(59,130,246,0.2)'
                 }}
               />
               
               {/* Image container */}
-              <div className='relative rounded-[2.5rem] border-2 border-cyan-500/30 bg-gradient-to-br from-cyan-500/10 to-teal-500/10 p-2 backdrop-blur-xl shadow-2xl'>
+              <div className='relative rounded-[2.5rem] border-2 border-blue-500/30 bg-blue-500/5 p-2 backdrop-blur-xl shadow-2xl'>
                 <div className='rounded-[2rem] overflow-hidden bg-slate-900/50'>
                   <Image
                     src='/images/logo.png'
@@ -147,7 +145,7 @@ export default function Hero() {
 
               {/* Floating decorative elements */}
               <motion.div
-                className='absolute -top-4 -right-4 w-20 h-20 rounded-full border-2 border-cyan-400/30'
+                className='absolute -top-4 -right-4 w-20 h-20 rounded-full border-2 border-blue-400/30'
                 animate={{
                   y: [0, -10, 0],
                   rotate: [0, 5, 0]
@@ -157,10 +155,10 @@ export default function Hero() {
                   repeat: Infinity,
                   ease: 'easeInOut'
                 }}
-                style={{ background: 'rgba(6,182,212,0.1)' }}
+                style={{ background: 'rgba(59,130,246,0.1)' }}
               />
               <motion.div
-                className='absolute -bottom-4 -left-4 w-16 h-16 rounded-full border-2 border-teal-400/30'
+                className='absolute -bottom-4 -left-4 w-16 h-16 rounded-full border-2 border-blue-400/30'
                 animate={{
                   y: [0, 10, 0],
                   rotate: [0, -5, 0]
@@ -171,7 +169,7 @@ export default function Hero() {
                   ease: 'easeInOut',
                   delay: 0.5
                 }}
-                style={{ background: 'rgba(8,145,178,0.1)' }}
+                style={{ background: 'rgba(59,130,246,0.1)' }}
               />
             </div>
           </motion.div>

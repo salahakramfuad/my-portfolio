@@ -128,16 +128,16 @@ const cx = (...c) => c.filter(Boolean).join(' ')
 export default function MyReads() {
   return (
     <section className='min-h-screen w-full mv-scope relative'>
-      {/* Scoped theme variables (Ocean Teal) */}
+      {/* Scoped theme variables (Simple Blue) */}
       <style jsx>{`
         .mv-scope {
-          --primary: #06b6d4;
-          --accent: #0891b2;
-          --secondary: #22d3ee;
-          --surface: rgba(6, 182, 212, 0.1);
-          --border: rgba(6, 182, 212, 0.2);
+          --primary: #3b82f6;
+          --accent: #3b82f6;
+          --secondary: #3b82f6;
+          --surface: rgba(59, 130, 246, 0.05);
+          --border: rgba(59, 130, 246, 0.2);
           --ink: rgba(255, 255, 255, 0.18);
-          --text: #f1f5f9;
+          --text: #f8fafc;
         }
         :global(.light) .mv-scope {
           --text: #0e172a;
@@ -164,7 +164,7 @@ export default function MyReads() {
         {/* Section Header */}
         <header className='mb-16 text-center'>
           <h2 className='text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-white mb-4'>
-            My <span className='bg-gradient-to-r from-cyan-400 to-teal-400 bg-clip-text text-transparent'>Reads</span>
+            My <span className='text-blue-400'>Reads</span>
           </h2>
           <p className='text-xl text-slate-400 max-w-2xl mx-auto'>
             A curated selection of books I've enjoyed recently—hover for a quick note.
@@ -181,7 +181,7 @@ export default function MyReads() {
           {books.map((b) => (
             <article
               key={b.id}
-              className='group relative overflow-hidden rounded-2xl border-2 border-cyan-500/20 shadow-xl transition-all hover:-translate-y-2 hover:shadow-2xl hover:border-cyan-400/40'
+              className='group relative overflow-hidden rounded-2xl border border-blue-500/20 shadow-xl transition-all hover:-translate-y-2 hover:shadow-2xl hover:border-blue-400/40'
               style={{
                 background: 'var(--surface)',
                 boxShadow: '0 10px 30px rgba(0,0,0,.3)'
@@ -221,7 +221,7 @@ export default function MyReads() {
                 <p className='mt-1 text-xs text-slate-400'>by {b.author}</p>
               </div>
 
-              {/* Teal glow on hover */}
+              {/* Simple glow on hover */}
               <span
                 aria-hidden
                 className='pointer-events-none absolute inset-0 rounded-2xl opacity-0 transition-opacity duration-300 group-hover:opacity-100'
@@ -237,7 +237,7 @@ export default function MyReads() {
         <div className='mt-12 grid grid-cols-1 gap-6 lg:grid-cols-2'>
           {/* Hobbies */}
           <section
-            className='rounded-3xl border-2 border-cyan-500/20 p-8 shadow-xl backdrop-blur-xl'
+            className='rounded-3xl border border-blue-500/20 p-8 shadow-xl backdrop-blur-xl'
             aria-labelledby='hobbies-heading'
             style={{
               background: 'var(--surface)',
@@ -284,7 +284,7 @@ export default function MyReads() {
 
           {/* Languages */}
           <section
-            className='rounded-3xl border-2 border-cyan-500/20 p-8 shadow-xl backdrop-blur-xl'
+            className='rounded-3xl border border-blue-500/20 p-8 shadow-xl backdrop-blur-xl'
             aria-labelledby='languages-heading'
             style={{
               background: 'var(--surface)',

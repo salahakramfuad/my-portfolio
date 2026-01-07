@@ -50,7 +50,7 @@ export default function Header() {
       {/* Skip to content */}
       <a
         href='#hero'
-        className='sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[60] focus:rounded-full focus:bg-cyan-600 focus:px-3 focus:py-2 focus:text-sm focus:text-white shadow-lg'
+            className='sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[60] focus:rounded-full focus:bg-blue-600 focus:px-3 focus:py-2 focus:text-sm focus:text-white shadow-lg'
       >
         Skip to content
       </a>
@@ -72,11 +72,11 @@ export default function Header() {
             onClick={() => handleNavClick('#hero')}
             className='flex items-center gap-2 text-sm font-semibold tracking-tight text-slate-50'
           >
-            <div className='flex h-10 w-10 items-center justify-center rounded-2xl bg-gradient-to-tr from-cyan-500 to-teal-600 text-sm font-bold shadow-lg shadow-cyan-500/40'>
+            <div className='flex h-10 w-10 items-center justify-center rounded-2xl bg-blue-600 text-sm font-bold shadow-lg'>
               F
             </div>
             <span className='text-lg sm:text-xl font-bold'>
-              <span className='text-cyan-300'>Mohammad Salah Akram </span>
+              <span className='text-blue-400'>Mohammad Salah Akram </span>
               <span className='opacity-75'>Fuad</span>
             </span>
           </Link>
@@ -93,24 +93,24 @@ export default function Header() {
                       onClick={() => handleNavClick(href)}
                       className={[
                         'relative rounded-full px-3 py-1.5 outline-none transition',
-                        'focus-visible:ring-2 focus-visible:ring-cyan-400/70',
+                        'focus-visible:ring-2 focus-visible:ring-blue-400/70',
                         'hover:bg-slate-800/70 hover:text-slate-50'
                       ].join(' ')}
                       style={{
                         color: isActive
-                          ? 'rgba(250,250,255,0.98)'
+                          ? '#ffffff'
                           : 'rgba(226,232,240,0.86)',
                         background: isActive
-                          ? 'linear-gradient(120deg, rgba(6,182,212,0.35), rgba(8,145,178,0.35))'
+                          ? 'rgba(59,130,246,0.2)'
                           : 'rgba(15,23,42,0.4)',
                         boxShadow: isActive
-                          ? '0 8px 22px rgba(6,182,212,0.55)'
+                          ? '0 0 0 1px rgba(59,130,246,0.5)'
                           : 'inset 0 0 0 1px rgba(148,163,184,0.36)'
                       }}
                     >
                       {label}
                       {isActive && (
-                        <span className='pointer-events-none absolute inset-x-4 -bottom-1 h-px rounded-full bg-gradient-to-r from-cyan-300/80 via-teal-300/80 to-cyan-300/80' />
+                        <span className='pointer-events-none absolute inset-x-4 -bottom-1 h-px rounded-full bg-blue-400' />
                       )}
                     </a>
                   </li>
@@ -131,7 +131,7 @@ export default function Header() {
 
           {/* Mobile hamburger */}
           <button
-            className='inline-flex items-center justify-center rounded-lg p-2 text-slate-100 sm:hidden hover:bg-slate-800/70 focus-visible:ring-2 focus-visible:ring-cyan-400/70'
+            className='inline-flex items-center justify-center rounded-lg p-2 text-slate-100 sm:hidden hover:bg-slate-800/70 focus-visible:ring-2 focus-visible:ring-blue-400/70'
             aria-label='Toggle menu'
             aria-expanded={open}
             onClick={() => setOpen((v) => !v)}
@@ -165,17 +165,17 @@ export default function Header() {
                 className='flex items-center gap-2 text-sm font-semibold tracking-tight text-slate-50'
                 onClick={() => handleNavClick('#hero')}
               >
-                <div className='flex h-10 w-10 items-center justify-center rounded-2xl bg-gradient-to-tr from-cyan-500 to-teal-600 text-sm font-bold shadow-lg shadow-cyan-500/40'>
+                <div className='flex h-10 w-10 items-center justify-center rounded-2xl bg-blue-600 text-sm font-bold shadow-lg'>
                   F
                 </div>
                 <span className='text-base font-bold'>
-                  <span className='text-cyan-300'>Mohammad Salah Akram </span>
+                  <span className='text-blue-400'>Mohammad Salah Akram </span>
                   <span className='opacity-75'>Fuad</span>
                 </span>
               </Link>
 
               <button
-                className='rounded-md p-2 text-slate-200 hover:bg-slate-800/70 focus-visible:ring-2 focus-visible:ring-cyan-400/70'
+                className='rounded-md p-2 text-slate-200 hover:bg-slate-800/70 focus-visible:ring-2 focus-visible:ring-blue-400/70'
                 aria-label='Close menu'
                 onClick={() => setOpen(false)}
               >
@@ -198,16 +198,16 @@ export default function Header() {
                     <a
                       href={href}
                       onClick={() => handleNavClick(href)}
-                      className='block rounded-xl px-3 py-2.5 text-base outline-none transition focus-visible:ring-2 focus-visible:ring-cyan-400/70'
+                      className='block rounded-xl px-3 py-2.5 text-base outline-none transition focus-visible:ring-2 focus-visible:ring-blue-400/70'
                       style={{
                         color: isActive
-                          ? 'rgba(248,250,252,0.98)'
+                          ? '#ffffff'
                           : 'rgba(226,232,240,0.9)',
                         background: isActive
-                          ? 'linear-gradient(120deg, rgba(6,182,212,0.32), rgba(8,145,178,0.32))'
+                          ? 'rgba(59,130,246,0.2)'
                           : 'rgba(15,23,42,0.7)',
                         boxShadow: isActive
-                          ? '0 10px 26px rgba(6,182,212,0.6)'
+                          ? '0 0 0 1px rgba(59,130,246,0.5)'
                           : 'inset 0 0 0 1px rgba(148,163,184,0.30)'
                       }}
                     >
@@ -222,10 +222,10 @@ export default function Header() {
               <a
                 href='#contact'
                 onClick={() => handleNavClick('#contact')}
-                className='inline-flex w-full items-center justify-center rounded-full px-4 py-2.5 text-sm font-medium text-white outline-none focus-visible:ring-2 focus-visible:ring-cyan-400/70'
+                className='inline-flex w-full items-center justify-center rounded-full px-4 py-2.5 text-sm font-medium text-white outline-none focus-visible:ring-2 focus-visible:ring-blue-400/70'
                 style={{
-                  background: 'linear-gradient(120deg,#06b6d4,#0891b2,#22d3ee)',
-                  boxShadow: '0 10px 26px rgba(6,182,212,0.55)'
+                  background: '#3b82f6',
+                  boxShadow: '0 4px 12px rgba(59,130,246,0.3)'
                 }}
               >
                 Hire Me

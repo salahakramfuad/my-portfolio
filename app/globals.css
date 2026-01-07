@@ -4,21 +4,23 @@
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
   
-  /* Ocean/Teal Theme Colors */
-  --color-primary: #06b6d4;
-  --color-primary-dark: #0891b2;
-  --color-accent: #22d3ee;
-  --color-surface: rgba(6, 182, 212, 0.1);
-  --color-text-primary: #f1f5f9;
+  /* Simple Minimal Theme */
+  --color-primary: #3b82f6;
+  --color-primary-dark: #2563eb;
+  --color-accent: #3b82f6;
+  --color-secondary: #3b82f6;
+  --color-surface: rgba(59, 130, 246, 0.05);
+  --color-text-primary: #f8fafc;
   --color-text-secondary: #cbd5e1;
 }
 
 :root {
-  --background: #0e172a;
-  --foreground: #f1f5f9;
-  --primary: #06b6d4;
-  --primary-dark: #0891b2;
-  --accent: #22d3ee;
+  --background: #0f172a;
+  --foreground: #f8fafc;
+  --primary: #3b82f6;
+  --primary-dark: #2563eb;
+  --accent: #3b82f6;
+  --secondary: #3b82f6;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -44,20 +46,12 @@ html {
   scroll-behavior: smooth;
 }
 
-/* Enhanced glassmorphism utilities */
+/* Simple glassmorphism utilities */
 @layer utilities {
-  .glass-teal {
-    background: rgba(6, 182, 212, 0.1);
+  .glass-simple {
+    background: rgba(59, 130, 246, 0.05);
     backdrop-filter: blur(12px);
     border: 1px solid rgba(255, 255, 255, 0.1);
-  }
-  
-  .glow-teal {
-    box-shadow: 0 0 20px rgba(6, 182, 212, 0.3);
-  }
-  
-  .gradient-teal {
-    background: linear-gradient(135deg, #06b6d4, #0891b2, #22d3ee);
   }
 }
 
@@ -87,6 +81,6 @@ html {
 
 /* Selection colors */
 ::selection {
-  background-color: rgba(6, 182, 212, 0.3);
-  color: #f1f5f9;
+  background-color: rgba(59, 130, 246, 0.3);
+  color: #f8fafc;
 }

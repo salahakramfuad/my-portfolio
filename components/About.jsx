@@ -14,13 +14,13 @@ import {
 
 const EASE = [0.22, 1, 0.36, 1]
 const PALETTE = {
-  primary: '#06b6d4', // headings, pins, gradients start
-  accent: '#0891b2', // hovers, rings, gradients end
-  secondary: '#22d3ee', // highlights, gradients end
-  surface: 'rgba(6,182,212,0.1)', // card bg (glass)
+  primary: '#3b82f6', // headings, pins, gradients start
+  accent: '#3b82f6', // hovers, rings, gradients end
+  secondary: '#3b82f6', // highlights, gradients end
+  surface: 'rgba(59,130,246,0.05)', // card bg (glass)
   gridInk: 'rgba(255,255,255,.18)', // grid lines
-  text: '#F1F5F9', // base text (dark mode)
-  surfaceDeep: '#0e172a' // deep surface for bg effects
+  text: '#F8FAFC', // base text (dark mode)
+  surfaceDeep: '#0f172a' // deep surface for bg effects
 }
 
 export default function AboutPage() {
@@ -113,9 +113,7 @@ export default function AboutPage() {
             className='absolute inset-0'
             style={{
               background:
-                `radial-gradient(60% 60% at 20% 20%, ${PALETTE.primary}22 0%, transparent 60%),` +
-                `radial-gradient(60% 60% at 80% 30%, ${PALETTE.accent}1f 0%, transparent 60%),` +
-                `radial-gradient(60% 60% at 40% 90%, ${PALETTE.secondary}22 0%, transparent 60%)`
+                `radial-gradient(60% 60% at 50% 50%, ${PALETTE.primary}08 0%, transparent 70%)`
             }}
           />
           <div
@@ -143,7 +141,7 @@ export default function AboutPage() {
               id='about-heading'
               className='text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-white mb-4'
             >
-              About <span className='bg-gradient-to-r from-cyan-400 to-teal-400 bg-clip-text text-transparent'>Me</span>
+              About <span className='text-blue-400'>Me</span>
             </h2>
             <p className='text-xl text-slate-400 max-w-2xl mx-auto'>
               Passionate developer crafting modern digital experiences
@@ -161,13 +159,13 @@ export default function AboutPage() {
               transition={{ duration: 0.6, ease: EASE }}
             >
               <div
-                className='sticky top-24 rounded-3xl border-2 border-cyan-500/20 p-8 shadow-2xl backdrop-blur-xl'
+                className='sticky top-24 rounded-3xl border border-blue-500/20 p-8 shadow-xl backdrop-blur-xl'
                 style={{
                   background: PALETTE.surface,
                   boxShadow: '0 20px 60px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.1)'
                 }}
               >
-                <div className='relative mx-auto mb-6 w-40 h-40 overflow-hidden rounded-2xl ring-4 ring-cyan-500/30 shadow-xl'>
+                <div className='relative mx-auto mb-6 w-40 h-40 overflow-hidden rounded-2xl ring-2 ring-blue-500/30 shadow-xl'>
                   <Image
                     src='/images/Fuad.png'
                     alt='Profile portrait'
@@ -186,7 +184,7 @@ export default function AboutPage() {
                 <h3 className='text-2xl font-bold text-white text-center mb-2'>
                   Mohammad Salah Akram Fuad
                 </h3>
-                <p className='text-center text-cyan-300 mb-6 font-medium'>Full-Stack Developer</p>
+                <p className='text-center text-blue-400 mb-6 font-medium'>Full-Stack Developer</p>
 
                 {/* SOCIAL LINKS */}
                 <nav className='flex flex-col gap-3'>
@@ -199,10 +197,10 @@ export default function AboutPage() {
                         href.startsWith('http') ? 'noopener noreferrer' : undefined
                       }
                       aria-label={label}
-                      className='group inline-flex items-center justify-center gap-2 rounded-xl border border-cyan-500/30 px-4 py-3 text-sm font-medium text-slate-100 backdrop-blur-md outline-none transition-all hover:bg-cyan-500/20 hover:border-cyan-400/50 focus-visible:ring-2 focus-visible:ring-cyan-400/70'
-                      style={{ background: 'rgba(6,182,212,0.08)' }}
+                      className='group inline-flex items-center justify-center gap-2 rounded-xl border border-blue-500/30 px-4 py-3 text-sm font-medium text-slate-100 backdrop-blur-md outline-none transition-all hover:bg-blue-500/10 hover:border-blue-400/50 focus-visible:ring-2 focus-visible:ring-blue-400/70'
+                      style={{ background: 'rgba(59,130,246,0.05)' }}
                     >
-                      <span className='text-cyan-300 group-hover:scale-110 transition-transform'>{icon}</span>
+                      <span className='text-blue-400 group-hover:scale-110 transition-transform'>{icon}</span>
                       <span>{label}</span>
                     </a>
                   ))}
@@ -214,7 +212,7 @@ export default function AboutPage() {
             <div className='lg:col-span-2 space-y-8'>
               {/* ABOUT ME */}
               <motion.section
-                className='rounded-3xl border-2 border-cyan-500/20 p-8 shadow-xl backdrop-blur-xl'
+                className='rounded-3xl border border-blue-500/20 p-8 shadow-xl backdrop-blur-xl'
                 initial={{ opacity: 0, y: 18 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, amount: 0.25 }}
@@ -225,7 +223,7 @@ export default function AboutPage() {
                 }}
               >
                 <h2 className='mb-4 flex items-center text-2xl font-bold text-white'>
-                  <FaUser className='mr-3 text-cyan-400' />
+                  <FaUser className='mr-3 text-blue-400' />
                   About Me
                 </h2>
                 <p className='text-slate-300 leading-relaxed text-lg'>
@@ -238,7 +236,7 @@ export default function AboutPage() {
 
               {/* EXPERIENCE */}
               <motion.section
-                className='rounded-3xl border-2 border-cyan-500/20 p-8 shadow-xl backdrop-blur-xl'
+                className='rounded-3xl border border-blue-500/20 p-8 shadow-xl backdrop-blur-xl'
                 initial={{ opacity: 0, y: 18 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, amount: 0.25 }}
@@ -281,9 +279,8 @@ export default function AboutPage() {
                             key={s}
                             className='inline-flex items-center rounded-full border px-2.5 py-1 text-xs font-medium text-white/90'
                             style={{
-                              borderColor: `${PALETTE.secondary}66`,
-                              background:
-                                'linear-gradient(180deg, rgba(6,182,212,0.15), rgba(6,182,212,0.05))'
+                            borderColor: `${PALETTE.primary}50`,
+                            background: 'rgba(59,130,246,0.08)'
                             }}
                           >
                             {s}
@@ -345,7 +342,7 @@ export default function AboutPage() {
 
               {/* EDUCATION */}
               <motion.section
-                className='rounded-3xl border-2 border-cyan-500/20 p-8 shadow-xl backdrop-blur-xl'
+                className='rounded-3xl border border-blue-500/20 p-8 shadow-xl backdrop-blur-xl'
                 initial={{ opacity: 0, y: 18 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, amount: 0.25 }}
@@ -375,7 +372,7 @@ export default function AboutPage() {
                       href={link}
                       target='_blank'
                       rel='noopener noreferrer'
-                      className='text-cyan-300 underline decoration-cyan-300/40 underline-offset-4 hover:text-cyan-200 hover:decoration-cyan-200/60'
+                      className='text-blue-300 underline decoration-blue-300/40 underline-offset-4 hover:text-blue-200 hover:decoration-blue-200/60'
                       aria-label='BRAC University website'
                     >
                       {school}
@@ -412,9 +409,8 @@ export default function AboutPage() {
                   key={skill}
                   className='group relative overflow-hidden rounded-xl border px-4 py-3 text-center font-medium text-slate-100 transition-all'
                   style={{
-                    borderColor: 'rgba(6,182,212,0.3)',
-                    background:
-                      'linear-gradient(180deg, rgba(6,182,212,0.15), rgba(6,182,212,0.05))',
+                    borderColor: 'rgba(59,130,246,0.3)',
+                    background: 'rgba(59,130,246,0.08)',
                     boxShadow: '0 6px 18px rgba(0,0,0,0.25)'
                   }}
                 >

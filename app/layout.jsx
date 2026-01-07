@@ -37,7 +37,7 @@ export default function RootLayout({ children }) {
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${inter.variable} ${calistoga.variable} bg-slate-950 text-slate-50 antialiased font-sans scroll-smooth`}
         style={{
-          background: 'linear-gradient(to bottom, #0e172a 0%, #1e293b 50%, #0e172a 100%)',
+          background: '#0f172a',
         }}
       >
         {children}
