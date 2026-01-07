@@ -6,98 +6,136 @@ import {
   FaMapMarkerAlt,
   FaLinkedin,
   FaGithub,
-  FaTwitter,
   FaFacebook
 } from 'react-icons/fa'
 
-// Contact Info Card
-const ContactCard = ({ icon, title, content, link }) => (
-  <a
-    href={link}
-    target='_blank'
-    rel='noopener noreferrer'
-    className='flex items-center space-x-3 text-slate-400 hover:text-[#625ffb] transition-colors'
-  >
-    <div className='text-lg text-[#625ffb]'>{icon}</div>
-    <p className='text-sm'>{content}</p>
-  </a>
-)
-
-// Social Media Links
-const SocialLinks = () => (
-  <div className='flex justify-center space-x-4 mt-6'>
-    <a
-      href='https://linkedin.com/in/salahakramfuad'
-      target='_blank'
-      rel='noopener noreferrer'
-      aria-label='LinkedIn'
-      className='text-xl text-slate-400 hover:text-[#625ffb] transition-colors'
-    >
-      <FaLinkedin />
-    </a>
-    <a
-      href='https://github.com/salahakramfuad'
-      target='_blank'
-      rel='noopener noreferrer'
-      aria-label='GitHub'
-      className='text-xl text-slate-400 hover:text-[#625ffb] transition-colors'
-    >
-      <FaGithub />
-    </a>
-    <a
-      href='https://facebook.com/salahakramfuad'
-      target='_blank'
-      rel='noopener noreferrer'
-      aria-label='Twitter'
-      className='text-xl text-slate-400 hover:text-[#625ffb] transition-colors'
-    >
-      <FaFacebook />
-    </a>
-  </div>
-)
 
 const ContactFooter = () => {
   return (
     <footer
-      className='bg-slate-900 py-12 px-4 bg-cover bg-center'
-      style={{ backgroundImage: 'url(/images/footer.svg)' }}
+      className='relative py-20 px-6 sm:px-8 overflow-hidden'
       id='contact'
     >
-      <div className='max-w-3xl mx-auto text-center space-y-8'>
-        {/* Heading */}
-        <h2 className='text-2xl font-bold text-slate-200 mb-4 font-[Calistoga]'>
-          Get in Touch
-        </h2>
+      {/* Background */}
+      <div className='absolute inset-0 -z-10'>
+        <div
+          className='absolute inset-0'
+          style={{
+            background:
+              'radial-gradient(ellipse 80% 50% at 50% 100%, rgba(6,182,212,0.15) 0%, transparent 70%)'
+          }}
+        />
+        <div
+          className='absolute inset-0 opacity-[0.08]'
+          style={{
+            backgroundImage:
+              'linear-gradient(to right, rgba(255,255,255,.15) 1px, transparent 1px), linear-gradient(to bottom, rgba(255,255,255,.15) 1px, transparent 1px)',
+            backgroundSize: '40px 40px'
+          }}
+        />
+      </div>
 
-        {/* Contact Cards */}
-        <div className='flex flex-col sm:flex-row justify-center items-center sm:items-start gap-6 text-center'>
-          <ContactCard
-            icon={<FaEnvelope />}
-            title='Email'
-            content='salahakramfuad@gmail.com'
-            link='mailto:salahakramfuad@gmail.com'
-          />
-          <ContactCard
-            icon={<FaPhone />}
-            title='Phone'
-            content='(+88) 01538380532'
-            link='tel:+8801538380532'
-          />
-          <ContactCard
-            icon={<FaMapMarkerAlt />}
-            title='Location'
-            content='Dhaka, Bangladesh'
-            link='https://www.google.com/maps/search/?q=Dhaka,Bangladesh'
-          />
+      <div className='max-w-7xl mx-auto'>
+        {/* Section Header */}
+        <div className='text-center mb-16'>
+          <h2 className='text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-white mb-4'>
+            Get in <span className='bg-gradient-to-r from-cyan-400 to-teal-400 bg-clip-text text-transparent'>Touch</span>
+          </h2>
+          <p className='text-xl text-slate-400 max-w-2xl mx-auto'>
+            Let's collaborate on your next project. I'm always open to new opportunities.
+          </p>
+        </div>
+
+        {/* Contact Cards Grid */}
+        <div className='grid md:grid-cols-3 gap-6 mb-12'>
+          <a
+            href='mailto:salahakramfuad@gmail.com'
+            className='group relative rounded-2xl border-2 border-cyan-500/20 p-8 backdrop-blur-xl transition-all hover:border-cyan-400/40 hover:scale-105'
+            style={{
+              background: 'rgba(6,182,212,0.1)',
+              boxShadow: '0 10px 30px rgba(0,0,0,.3)'
+            }}
+          >
+            <div className='text-4xl text-cyan-400 mb-4 group-hover:scale-110 transition-transform'>
+              <FaEnvelope />
+            </div>
+            <h3 className='text-xl font-bold text-white mb-2'>Email</h3>
+            <p className='text-slate-300'>salahakramfuad@gmail.com</p>
+          </a>
+
+          <a
+            href='tel:+8801538380532'
+            className='group relative rounded-2xl border-2 border-cyan-500/20 p-8 backdrop-blur-xl transition-all hover:border-cyan-400/40 hover:scale-105'
+            style={{
+              background: 'rgba(6,182,212,0.1)',
+              boxShadow: '0 10px 30px rgba(0,0,0,.3)'
+            }}
+          >
+            <div className='text-4xl text-cyan-400 mb-4 group-hover:scale-110 transition-transform'>
+              <FaPhone />
+            </div>
+            <h3 className='text-xl font-bold text-white mb-2'>Phone</h3>
+            <p className='text-slate-300'>(+88) 01538380532</p>
+          </a>
+
+          <a
+            href='https://www.google.com/maps/search/?q=Dhaka,Bangladesh'
+            target='_blank'
+            rel='noopener noreferrer'
+            className='group relative rounded-2xl border-2 border-cyan-500/20 p-8 backdrop-blur-xl transition-all hover:border-cyan-400/40 hover:scale-105'
+            style={{
+              background: 'rgba(6,182,212,0.1)',
+              boxShadow: '0 10px 30px rgba(0,0,0,.3)'
+            }}
+          >
+            <div className='text-4xl text-cyan-400 mb-4 group-hover:scale-110 transition-transform'>
+              <FaMapMarkerAlt />
+            </div>
+            <h3 className='text-xl font-bold text-white mb-2'>Location</h3>
+            <p className='text-slate-300'>Dhaka, Bangladesh</p>
+          </a>
         </div>
 
         {/* Social Links */}
-        <SocialLinks />
+        <div className='flex justify-center gap-6 mb-12'>
+          <a
+            href='https://linkedin.com/in/salahakramfuad'
+            target='_blank'
+            rel='noopener noreferrer'
+            aria-label='LinkedIn'
+            className='group rounded-xl border-2 border-cyan-500/30 p-4 text-2xl text-cyan-400 backdrop-blur-xl transition-all hover:bg-cyan-500/20 hover:border-cyan-400/50 hover:scale-110'
+            style={{ background: 'rgba(6,182,212,0.1)' }}
+          >
+            <FaLinkedin />
+          </a>
+          <a
+            href='https://github.com/salahakramfuad'
+            target='_blank'
+            rel='noopener noreferrer'
+            aria-label='GitHub'
+            className='group rounded-xl border-2 border-cyan-500/30 p-4 text-2xl text-cyan-400 backdrop-blur-xl transition-all hover:bg-cyan-500/20 hover:border-cyan-400/50 hover:scale-110'
+            style={{ background: 'rgba(6,182,212,0.1)' }}
+          >
+            <FaGithub />
+          </a>
+          <a
+            href='https://facebook.com/salahakramfuad'
+            target='_blank'
+            rel='noopener noreferrer'
+            aria-label='Facebook'
+            className='group rounded-xl border-2 border-cyan-500/30 p-4 text-2xl text-cyan-400 backdrop-blur-xl transition-all hover:bg-cyan-500/20 hover:border-cyan-400/50 hover:scale-110'
+            style={{ background: 'rgba(6,182,212,0.1)' }}
+          >
+            <FaFacebook />
+          </a>
+        </div>
 
         {/* Copyright */}
-        <p className='text-sm text-slate-500 mt-8'>
-          © {new Date().getFullYear()} Salah Akram Fuad. All rights reserved.
-        </p>
+        <div className='text-center pt-8 border-t border-cyan-500/20'>
+          <p className='text-slate-400'>
+            © 2025 Mohammad Salah Akram Fuad. All rights reserved.
+          </p>
+        </div>
       </div>
     </footer>
   )

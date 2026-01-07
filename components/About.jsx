@@ -14,12 +14,13 @@ import {
 
 const EASE = [0.22, 1, 0.36, 1]
 const PALETTE = {
-  primary: '#6D28D9', // headings, pins, gradients start
-  accent: '#8B5CF6', // hovers, rings, gradients end
-  surface: 'rgba(255,255,255,0.05)', // card bg (glass)
-  gridInk: 'rgba(255,255,255,.2)', // grid lines
+  primary: '#06b6d4', // headings, pins, gradients start
+  accent: '#0891b2', // hovers, rings, gradients end
+  secondary: '#22d3ee', // highlights, gradients end
+  surface: 'rgba(6,182,212,0.1)', // card bg (glass)
+  gridInk: 'rgba(255,255,255,.18)', // grid lines
   text: '#F1F5F9', // base text (dark mode)
-  surfaceDeep: '#1E1B4B' // deep surface for bg effects
+  surfaceDeep: '#0e172a' // deep surface for bg effects
 }
 
 export default function AboutPage() {
@@ -41,7 +42,7 @@ export default function AboutPage() {
       title: 'Mobile App Developer (Expo)',
       company: 'Party-Room Booking App • 2025',
       summary:
-        'Hong Kong–style party/mahjong room marketplace using Expo Router and React Native with a unified violet brand system.',
+        'Hong Kong–style party/mahjong room marketplace using Expo Router and React Native with modern UI/UX design.',
       stack: ['Expo', 'React Native', 'TypeScript', 'Expo Router'],
       links: { site: null, repo: null, caseStudy: null }
     },
@@ -112,9 +113,9 @@ export default function AboutPage() {
             className='absolute inset-0'
             style={{
               background:
-                `radial-gradient(60% 60% at 20% 20%, ${PALETTE.primary}33 0%, transparent 60%),` +
-                `radial-gradient(60% 60% at 80% 30%, ${PALETTE.accent}2b 0%, transparent 60%),` +
-                `radial-gradient(60% 60% at 40% 90%, ${PALETTE.accent}2d 0%, transparent 60%)`
+                `radial-gradient(60% 60% at 20% 20%, ${PALETTE.primary}22 0%, transparent 60%),` +
+                `radial-gradient(60% 60% at 80% 30%, ${PALETTE.accent}1f 0%, transparent 60%),` +
+                `radial-gradient(60% 60% at 40% 90%, ${PALETTE.secondary}22 0%, transparent 60%)`
             }}
           />
           <div
@@ -129,77 +130,124 @@ export default function AboutPage() {
         </div>
 
         {/* CONTAINER */}
-        <div className='mx-auto w-full max-w-7xl px-6 py-16 sm:px-8'>
-          {/* HEADER BAND */}
-          <motion.header
-            className='mb-10 rounded-3xl border border-white/10 p-6 text-center shadow-2xl backdrop-blur-lg sm:p-10'
-            initial={{ opacity: 0, y: 24 }}
+        <div className='mx-auto w-full max-w-7xl px-6 py-20 sm:px-8'>
+          {/* Section Header */}
+          <motion.div
+            className='text-center mb-16'
+            initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.25 }}
-            transition={{ duration: 0.6, ease: EASE }}
-            style={{
-              background: PALETTE.surface,
-              boxShadow:
-                '0 20px 60px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.06)'
-            }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
           >
-            <div className='relative mx-auto mb-6 h-32 w-32 overflow-hidden rounded-full ring-2 ring-white/15 shadow-xl sm:h-36 sm:w-36'>
-              <Image
-                src='/images/Fuad.png'
-                alt='Profile portrait of Mohammad Salah Akram Fuad'
-                width={288}
-                height={288}
-                className='h-full w-full object-cover'
-                priority
-              />
-              <span
-                aria-hidden
-                className='absolute bottom-2 right-2 inline-block h-3 w-3 rounded-full ring-2 ring-slate-900'
-                style={{ background: PALETTE.accent }}
-                title='Open to work'
-              />
-            </div>
-            <h1
+            <h2
               id='about-heading'
-              className='text-3xl font-bold tracking-tight text-white sm:text-4xl'
+              className='text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-white mb-4'
             >
-              Mohammad Salah Akram Fuad
-            </h1>
-            <p className='mt-2 text-lg text-slate-300'>Full-Stack Developer</p>
+              About <span className='bg-gradient-to-r from-cyan-400 to-teal-400 bg-clip-text text-transparent'>Me</span>
+            </h2>
+            <p className='text-xl text-slate-400 max-w-2xl mx-auto'>
+              Passionate developer crafting modern digital experiences
+            </p>
+          </motion.div>
 
-            {/* SOCIAL LINKS */}
-            <nav className='mt-5 flex flex-wrap items-center justify-center gap-3'>
-              {socials.map(({ label, href, icon }) => (
-                <a
-                  key={label}
-                  href={href}
-                  target={href.startsWith('http') ? '_blank' : undefined}
-                  rel={
-                    href.startsWith('http') ? 'noopener noreferrer' : undefined
-                  }
-                  aria-label={label}
-                  className='inline-flex items-center gap-2 rounded-full border border-white/15 px-4 py-2 text-sm font-medium text-slate-100 backdrop-blur-md outline-none transition-colors hover:bg-white/10 focus-visible:ring-2'
-                  style={{ background: PALETTE.surface }}
-                >
-                  <span className='text-slate-200'>{icon}</span>
-                  <span>{label}</span>
-                </a>
-              ))}
-            </nav>
-          </motion.header>
+          {/* Two Column Layout */}
+          <div className='grid lg:grid-cols-3 gap-8 mb-16'>
+            {/* Left Column - Profile Card */}
+            <motion.div
+              className='lg:col-span-1'
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true, amount: 0.3 }}
+              transition={{ duration: 0.6, ease: EASE }}
+            >
+              <div
+                className='sticky top-24 rounded-3xl border-2 border-cyan-500/20 p-8 shadow-2xl backdrop-blur-xl'
+                style={{
+                  background: PALETTE.surface,
+                  boxShadow: '0 20px 60px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.1)'
+                }}
+              >
+                <div className='relative mx-auto mb-6 w-40 h-40 overflow-hidden rounded-2xl ring-4 ring-cyan-500/30 shadow-xl'>
+                  <Image
+                    src='/images/Fuad.png'
+                    alt='Profile portrait'
+                    width={240}
+                    height={240}
+                    className='h-full w-full object-cover'
+                    priority
+                  />
+                  <span
+                    aria-hidden
+                    className='absolute bottom-3 right-3 inline-block h-4 w-4 rounded-full ring-2 ring-slate-900'
+                    style={{ background: PALETTE.secondary }}
+                    title='Open to work'
+                  />
+                </div>
+                <h3 className='text-2xl font-bold text-white text-center mb-2'>
+                  Mohammad Salah Akram Fuad
+                </h3>
+                <p className='text-center text-cyan-300 mb-6 font-medium'>Full-Stack Developer</p>
 
-          {/* EXPERIENCE */}
-          <motion.section
-            className='mb-8 rounded-3xl border border-white/10 p-6 shadow-xl backdrop-blur-lg sm:p-10'
-            initial={{ opacity: 0, y: 18 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.25 }}
-            transition={{ duration: 0.5, ease: EASE }}
-            style={{
-              background: PALETTE.surface,
-              boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.04)'
-            }}
-          >
+                {/* SOCIAL LINKS */}
+                <nav className='flex flex-col gap-3'>
+                  {socials.map(({ label, href, icon }) => (
+                    <a
+                      key={label}
+                      href={href}
+                      target={href.startsWith('http') ? '_blank' : undefined}
+                      rel={
+                        href.startsWith('http') ? 'noopener noreferrer' : undefined
+                      }
+                      aria-label={label}
+                      className='group inline-flex items-center justify-center gap-2 rounded-xl border border-cyan-500/30 px-4 py-3 text-sm font-medium text-slate-100 backdrop-blur-md outline-none transition-all hover:bg-cyan-500/20 hover:border-cyan-400/50 focus-visible:ring-2 focus-visible:ring-cyan-400/70'
+                      style={{ background: 'rgba(6,182,212,0.08)' }}
+                    >
+                      <span className='text-cyan-300 group-hover:scale-110 transition-transform'>{icon}</span>
+                      <span>{label}</span>
+                    </a>
+                  ))}
+                </nav>
+              </div>
+            </motion.div>
+
+            {/* Right Column - Content */}
+            <div className='lg:col-span-2 space-y-8'>
+              {/* ABOUT ME */}
+              <motion.section
+                className='rounded-3xl border-2 border-cyan-500/20 p-8 shadow-xl backdrop-blur-xl'
+                initial={{ opacity: 0, y: 18 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.25 }}
+                transition={{ duration: 0.5, ease: EASE }}
+                style={{
+                  background: PALETTE.surface,
+                  boxShadow: '0 20px 40px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.05)'
+                }}
+              >
+                <h2 className='mb-4 flex items-center text-2xl font-bold text-white'>
+                  <FaUser className='mr-3 text-cyan-400' />
+                  About Me
+                </h2>
+                <p className='text-slate-300 leading-relaxed text-lg'>
+                  I'm a frontend-leaning full-stack developer focused on elegant,
+                  high-performance web and mobile experiences. I specialize in
+                  Next.js, TypeScript/JavaScript, Tailwind CSS, and React Native,
+                  with an eye for UX, clean state flows, and production polish.
+                </p>
+              </motion.section>
+
+              {/* EXPERIENCE */}
+              <motion.section
+                className='rounded-3xl border-2 border-cyan-500/20 p-8 shadow-xl backdrop-blur-xl'
+                initial={{ opacity: 0, y: 18 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.25 }}
+                transition={{ duration: 0.5, ease: EASE, delay: 0.1 }}
+                style={{
+                  background: PALETTE.surface,
+                  boxShadow: '0 20px 40px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.05)'
+                }}
+              >
             <h2 className='mb-6 flex items-center text-2xl font-bold text-gray-100'>
               <FaBriefcase className='mr-3' style={{ color: PALETTE.accent }} />{' '}
               Experience
@@ -233,9 +281,9 @@ export default function AboutPage() {
                             key={s}
                             className='inline-flex items-center rounded-full border px-2.5 py-1 text-xs font-medium text-white/90'
                             style={{
-                              borderColor: `${PALETTE.accent}66`,
+                              borderColor: `${PALETTE.secondary}66`,
                               background:
-                                'linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02))'
+                                'linear-gradient(180deg, rgba(6,182,212,0.15), rgba(6,182,212,0.05))'
                             }}
                           >
                             {s}
@@ -293,44 +341,20 @@ export default function AboutPage() {
                 </li>
               ))}
             </ol>
-          </motion.section>
+              </motion.section>
 
-          {/* ABOUT ME */}
-          <motion.section
-            className='mb-8 rounded-3xl border border-white/10 p-6 shadow-xl backdrop-blur-lg sm:p-10'
-            initial={{ opacity: 0, y: 18 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.25 }}
-            transition={{ duration: 0.5, ease: EASE, delay: 0.05 }}
-            style={{
-              background: PALETTE.surface,
-              boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.04)'
-            }}
-          >
-            <h2 className='mb-4 flex items-center text-2xl font-bold text-gray-100'>
-              <FaUser className='mr-3' style={{ color: PALETTE.accent }} />{' '}
-              About Me
-            </h2>
-            <p className='text-slate-300 leading-relaxed'>
-              I’m a frontend-leaning full-stack developer focused on elegant,
-              high-performance web and mobile experiences. I specialize in
-              Next.js, TypeScript/JavaScript, Tailwind CSS, and React Native,
-              with an eye for UX, clean state flows, and production polish.
-            </p>
-          </motion.section>
-
-          {/* EDUCATION */}
-          <motion.section
-            className='mb-8 rounded-3xl border border-white/10 p-6 shadow-xl backdrop-blur-lg sm:p-10'
-            initial={{ opacity: 0, y: 18 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.25 }}
-            transition={{ duration: 0.5, ease: EASE, delay: 0.06 }}
-            style={{
-              background: PALETTE.surface,
-              boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.04)'
-            }}
-          >
+              {/* EDUCATION */}
+              <motion.section
+                className='rounded-3xl border-2 border-cyan-500/20 p-8 shadow-xl backdrop-blur-xl'
+                initial={{ opacity: 0, y: 18 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.25 }}
+                transition={{ duration: 0.5, ease: EASE, delay: 0.15 }}
+                style={{
+                  background: PALETTE.surface,
+                  boxShadow: '0 20px 40px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.05)'
+                }}
+              >
             <h2 className='mb-4 flex items-center text-2xl font-bold text-gray-100'>
               <FaGraduationCap
                 className='mr-3'
@@ -351,7 +375,7 @@ export default function AboutPage() {
                       href={link}
                       target='_blank'
                       rel='noopener noreferrer'
-                      className='text-violet-300 underline decoration-violet-300/40 underline-offset-4 hover:text-violet-200 hover:decoration-violet-200/60'
+                      className='text-cyan-300 underline decoration-cyan-300/40 underline-offset-4 hover:text-cyan-200 hover:decoration-cyan-200/60'
                       aria-label='BRAC University website'
                     >
                       {school}
@@ -362,18 +386,20 @@ export default function AboutPage() {
                 </li>
               ))}
             </ul>
-          </motion.section>
+              </motion.section>
+            </div>
+          </div>
 
-          {/* SKILLS */}
+          {/* SKILLS - Full Width */}
           <motion.section
-            className='rounded-3xl border border-white/10 p-6 shadow-xl backdrop-blur-lg sm:p-10'
+            className='rounded-3xl border-2 border-cyan-500/20 p-8 sm:p-10 shadow-xl backdrop-blur-xl'
             initial={{ opacity: 0, y: 18 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.25 }}
-            transition={{ duration: 0.5, ease: EASE, delay: 0.07 }}
+            transition={{ duration: 0.5, ease: EASE, delay: 0.2 }}
             style={{
               background: PALETTE.surface,
-              boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.04)'
+              boxShadow: '0 20px 40px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.05)'
             }}
           >
             <h2 className='mb-4 flex items-center text-2xl font-bold text-gray-100'>
@@ -386,9 +412,9 @@ export default function AboutPage() {
                   key={skill}
                   className='group relative overflow-hidden rounded-xl border px-4 py-3 text-center font-medium text-slate-100 transition-all'
                   style={{
-                    borderColor: 'rgba(255,255,255,0.12)',
+                    borderColor: 'rgba(6,182,212,0.3)',
                     background:
-                      'linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02))',
+                      'linear-gradient(180deg, rgba(6,182,212,0.15), rgba(6,182,212,0.05))',
                     boxShadow: '0 6px 18px rgba(0,0,0,0.25)'
                   }}
                 >

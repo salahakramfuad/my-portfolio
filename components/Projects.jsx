@@ -3,11 +3,12 @@ import React from 'react'
 import { motion, MotionConfig } from 'framer-motion'
 import Image from 'next/image'
 
-// ---- Theme (Midnight Violet) ----
+// ---- Theme (Ocean Teal) ----
 const PALETTE = {
-  primary: '#6D28D9',
-  accent: '#8B5CF6',
-  surface: 'rgba(255,255,255,0.05)',
+  primary: '#06b6d4',
+  accent: '#0891b2',
+  secondary: '#22d3ee',
+  surface: 'rgba(6,182,212,0.1)',
   gridInk: 'rgba(255,255,255,.18)'
 }
 
@@ -18,7 +19,7 @@ const projects = [
     description:
       'Conversion-focused site for an education provider, built on Next.js.',
     image: '/images/hope-ttc.png',
-    link: 'hopettc.com',
+    link: 'https://www.hopettc.com',
     year: '2025'
   },
   {
@@ -61,133 +62,174 @@ const cardVariants = {
 }
 
 export default function Projects() {
+  const featuredProject = projects[0]
+  const otherProjects = projects.slice(1)
+
   return (
     <MotionConfig reducedMotion='user'>
       <section
         id='projects'
-        className='relative mx-auto max-w-7xl px-6 py-16 sm:px-8'
+        className='relative mx-auto max-w-7xl px-6 py-20 sm:px-8'
         aria-labelledby='projects-heading'
       >
-        {/* Background tuned to violet palette */}
+        {/* Background */}
         <div className='pointer-events-none absolute inset-0 -z-10'>
           <div
             aria-hidden
-            className='absolute inset-0 opacity-60'
+            className='absolute inset-0'
             style={{
               background:
-                `radial-gradient(60% 60% at 20% 20%, ${PALETTE.primary}33 0%, transparent 60%),` +
-                `radial-gradient(60% 60% at 80% 30%, ${PALETTE.accent}2b 0%, transparent 60%),` +
-                `radial-gradient(60% 60% at 40% 90%, ${PALETTE.accent}29 0%, transparent 60%)`
+                `radial-gradient(ellipse 80% 50% at 50% 0%, ${PALETTE.primary}15 0%, transparent 70%),` +
+                `radial-gradient(ellipse 60% 50% at 50% 100%, ${PALETTE.accent}12 0%, transparent 70%)`
             }}
           />
           <div
             aria-hidden
-            className='absolute inset-0 opacity-[0.06] [mask-image:radial-gradient(65%_60%_at_50%_40%,black,transparent)]'
+            className='absolute inset-0 opacity-[0.08]'
             style={{
               backgroundImage: `linear-gradient(to right, ${PALETTE.gridInk} 1px, transparent 1px),
                  linear-gradient(to bottom, ${PALETTE.gridInk} 1px, transparent 1px)`,
-              backgroundSize: '36px 36px'
+              backgroundSize: '40px 40px'
             }}
           />
         </div>
 
-        {/* Heading */}
-        <motion.h1
-          id='projects-heading'
-          className='text-center font-[Calistoga] text-4xl font-bold tracking-tight text-white sm:text-5xl'
-          initial={{ opacity: 0, y: -16 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.6 }}
-          transition={{ duration: 0.5, ease: EASE }}
-        >
-          Featured Projects
-        </motion.h1>
-
-        {/* Subtext */}
-        <motion.p
-          className='mx-auto mt-4 max-w-2xl text-center text-lg leading-relaxed text-slate-300'
-          initial={{ opacity: 0, y: -8 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.6 }}
-          transition={{ duration: 0.45, delay: 0.05, ease: EASE }}
-        >
-          Elegant, high-performance web apps crafted with care and clean code.
-        </motion.p>
-
-        {/* Grid — 4 columns on xl */}
+        {/* Section Header */}
         <motion.div
-          className='mt-12 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'
+          className='text-center mb-16'
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+        >
+          <h1
+            id='projects-heading'
+            className='text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-white mb-4'
+          >
+            Featured <span className='bg-gradient-to-r from-cyan-400 to-teal-400 bg-clip-text text-transparent'>Projects</span>
+          </h1>
+          <p className='text-xl text-slate-400 max-w-2xl mx-auto'>
+            Elegant, high-performance web apps crafted with care and clean code
+          </p>
+        </motion.div>
+
+        {/* Featured Project */}
+        <motion.a
+          href={featuredProject.link}
+          target='_blank'
+          rel='noopener noreferrer'
+          className='group block mb-16'
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.7 }}
+        >
+          <div className='relative overflow-hidden rounded-3xl border-2 border-cyan-500/30 bg-gradient-to-br from-cyan-500/10 to-teal-500/10 backdrop-blur-xl shadow-2xl'>
+            <div className='grid lg:grid-cols-2 gap-0'>
+              {/* Image */}
+              <div className='relative h-64 lg:h-auto lg:min-h-[500px] order-2 lg:order-1'>
+                <Image
+                  src={featuredProject.image}
+                  alt={`${featuredProject.title} - Featured project`}
+                  fill
+                  className='object-cover transition-transform duration-700 group-hover:scale-105'
+                  priority
+                />
+                <div className='absolute inset-0 bg-gradient-to-r from-slate-950/80 via-slate-950/40 to-transparent lg:from-transparent lg:via-transparent' />
+                <span
+                  className='absolute top-4 left-4 inline-flex items-center rounded-full px-4 py-2 text-sm font-semibold text-white backdrop-blur-md border border-cyan-400/30'
+                  style={{
+                    background: 'rgba(6,182,212,0.2)',
+                    boxShadow: '0 8px 24px rgba(0,0,0,.4)'
+                  }}
+                >
+                  Featured • {featuredProject.year}
+                </span>
+              </div>
+              
+              {/* Content */}
+              <div className='flex flex-col justify-center p-8 lg:p-12 order-1 lg:order-2 relative'>
+                <h2 className='text-3xl lg:text-4xl font-bold text-white mb-4'>
+                  {featuredProject.title}
+                </h2>
+                <p className='text-lg text-slate-300 mb-6 leading-relaxed'>
+                  {featuredProject.description}
+                </p>
+                <div className='inline-flex items-center gap-2 text-cyan-300 font-semibold group-hover:gap-4 transition-all'>
+                  View Project
+                  <svg className='w-5 h-5 group-hover:translate-x-1 transition-transform' fill='none' viewBox='0 0 24 24' stroke='currentColor'>
+                    <path strokeLinecap='round' strokeLinejoin='round' strokeWidth={2} d='M17 8l4 4m0 0l-4 4m4-4H3' />
+                  </svg>
+                </div>
+              </div>
+            </div>
+          </div>
+        </motion.a>
+
+        {/* Other Projects Grid */}
+        <motion.div
+          className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'
           variants={containerVariants}
           initial='hidden'
           whileInView='visible'
           viewport={{ once: true, amount: 0.2 }}
         >
-          {projects.map((project, i) => (
+          {otherProjects.map((project, i) => (
             <motion.a
               key={project.link}
               href={project.link}
               target='_blank'
               rel='noopener noreferrer'
               aria-label={`${project.title} — open project site`}
-              className='group relative block overflow-hidden rounded-2xl border border-white/10 bg-white/5 shadow-xl outline-none transition-all hover:shadow-2xl focus-visible:ring-2'
-              style={{ backdropFilter: 'blur(6px)' }}
+              className='group relative block overflow-hidden rounded-2xl border-2 border-cyan-500/20 bg-gradient-to-br from-cyan-500/5 to-teal-500/5 backdrop-blur-xl shadow-xl outline-none transition-all hover:shadow-2xl focus-visible:ring-2 focus-visible:ring-cyan-400/70 hover:border-cyan-400/40'
               variants={cardVariants}
-              whileHover={{ y: -2 }}
+              whileHover={{ y: -8, scale: 1.02 }}
             >
-              {/* Violet border glow on hover */}
+              {/* Teal glow on hover */}
               <span
                 aria-hidden
                 className='pointer-events-none absolute inset-0 rounded-2xl opacity-0 transition-opacity duration-300 group-hover:opacity-100'
                 style={{
-                  background: `linear-gradient(135deg, ${PALETTE.primary}40, ${PALETTE.accent}40)`
+                  background: `linear-gradient(135deg, ${PALETTE.primary}25, ${PALETTE.accent}25)`
                 }}
               />
 
               {/* Image */}
-              <div className='relative aspect-[16/10] w-full'>
+              <div className='relative aspect-video w-full'>
                 <Image
                   src={project.image}
-                  alt={project.title}
+                  alt={`${project.title} project screenshot`}
                   fill
-                  sizes='(max-width: 640px) 100vw, (max-width: 1280px) 50vw, 25vw'
-                  className='object-cover transition-transform duration-500 group-hover:scale-[1.04]'
-                  priority={i < 1}
+                  sizes='(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw'
+                  className='object-cover transition-transform duration-500 group-hover:scale-110'
+                  loading={i === 0 ? 'eager' : 'lazy'}
                 />
-                {/* Gradient + year badge */}
-                <div className='pointer-events-none absolute inset-0 bg-gradient-to-t from-slate-950/65 via-transparent to-transparent' />
+                <div className='absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/50 to-transparent' />
                 <span
-                  className='absolute left-3 top-3 inline-flex items-center rounded-full px-3 py-1 text-xs font-medium text-slate-100 ring-1 backdrop-blur-md'
+                  className='absolute top-3 left-3 inline-flex items-center rounded-lg px-3 py-1.5 text-xs font-semibold text-white backdrop-blur-md border border-cyan-400/30'
                   style={{
-                    background: 'rgba(15, 15, 30, .55)',
-                    boxShadow: '0 6px 18px rgba(0,0,0,.35)',
-                    borderColor: 'rgba(255,255,255,.14)'
+                    background: 'rgba(6,182,212,0.25)',
+                    boxShadow: '0 4px 12px rgba(0,0,0,.3)'
                   }}
                 >
                   {project.year}
                 </span>
-                {/* Hover overlay CTA */}
-                <div className='absolute inset-0 flex items-center justify-center opacity-0 transition-opacity duration-300 group-hover:opacity-100'>
-                  <span
-                    className='rounded-full px-4 py-2 text-sm font-medium text-white ring-1 backdrop-blur-md'
-                    style={{
-                      background: `linear-gradient(90deg, ${PALETTE.primary}, ${PALETTE.accent})`,
-                      borderColor: 'rgba(255,255,255,.18)'
-                    }}
-                  >
-                    View project →
-                  </span>
-                </div>
               </div>
 
               {/* Details */}
-              <div
-                className='relative p-6 transition-colors'
-                style={{ background: 'rgba(255,255,255,0.035)' }}
-              >
-                <h2 className='text-lg font-semibold text-white sm:text-xl'>
+              <div className='relative p-6'>
+                <h2 className='text-xl font-bold text-white mb-2'>
                   {project.title}
                 </h2>
-                <p className='mt-2 text-slate-300'>{project.description}</p>
+                <p className='text-slate-300 text-sm leading-relaxed'>
+                  {project.description}
+                </p>
+                <div className='mt-4 inline-flex items-center gap-2 text-cyan-300 text-sm font-medium opacity-0 group-hover:opacity-100 transition-opacity'>
+                  View Details
+                  <svg className='w-4 h-4' fill='none' viewBox='0 0 24 24' stroke='currentColor'>
+                    <path strokeLinecap='round' strokeLinejoin='round' strokeWidth={2} d='M9 5l7 7-7 7' />
+                  </svg>
+                </div>
               </div>
             </motion.a>
           ))}

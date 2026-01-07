@@ -3,8 +3,9 @@
 import { useMemo, useState } from 'react'
 
 const THEME = {
-  primary: '#6D28D9',
-  accent: '#8B5CF6'
+  primary: '#06b6d4',
+  accent: '#0891b2',
+  secondary: '#22d3ee'
 }
 
 export default function PDFCard() {
@@ -20,27 +21,35 @@ export default function PDFCard() {
   )
 
   return (
-    <section className='w-full px-4 py-12'>
+    <section id='resume' className='relative w-full px-6 py-20 sm:px-8'>
+      {/* Background */}
+      <div className='pointer-events-none absolute inset-0 -z-10'>
+        <div
+          className='absolute inset-0'
+          style={{
+            background:
+              'radial-gradient(ellipse 80% 50% at 50% 0%, rgba(6,182,212,0.1) 0%, transparent 70%)'
+          }}
+        />
+      </div>
+
       <div className='mx-auto max-w-7xl'>
-        {/* Title */}
-        <header className='mb-4 text-center'>
-          <h2 className='text-2xl md:text-3xl font-bold text-white'>
-            📄 Resume — Mohammad Salah Akram Fuad
+        {/* Section Header */}
+        <div className='text-center mb-12'>
+          <h2 className='text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-white mb-4'>
+            My <span className='bg-gradient-to-r from-cyan-400 to-teal-400 bg-clip-text text-transparent'>Resume</span>
           </h2>
-          <p className='mt-1 text-sm text-slate-300'>
-            Inline preview with quick controls. Works even if iframes are
-            blocked (fallback links below).
+          <p className='text-xl text-slate-400 max-w-2xl mx-auto'>
+            Download or view my resume for detailed information about my experience and skills
           </p>
-        </header>
+        </div>
 
         {/* Toolbar */}
         <div
-          className='mb-4 flex flex-wrap items-center justify-between gap-3 rounded-xl border px-3 py-2'
+          className='mb-6 flex flex-wrap items-center justify-between gap-4 rounded-2xl border-2 border-cyan-500/20 px-6 py-4 backdrop-blur-xl'
           style={{
-            borderColor: 'rgba(255,255,255,.12)',
-            background: 'rgba(255,255,255,.05)',
-            boxShadow: '0 8px 24px rgba(0,0,0,.26)',
-            backdropFilter: 'blur(6px)'
+            background: 'rgba(6,182,212,0.1)',
+            boxShadow: '0 10px 30px rgba(0,0,0,.3)'
           }}
         >
           {/* Left: Zoom */}
@@ -58,15 +67,16 @@ export default function PDFCard() {
                   <button
                     key={val}
                     onClick={() => setZoom(val)}
-                    className='rounded-full px-3 py-1 text-xs font-medium outline-none focus-visible:ring-2'
+                    className='rounded-lg px-4 py-2 text-sm font-medium outline-none focus-visible:ring-2 focus-visible:ring-cyan-400/70 transition-all'
                     style={{
                       color: active ? 'white' : 'rgba(241,245,249,.9)',
                       background: active
-                        ? `linear-gradient(90deg, ${THEME.primary}, ${THEME.accent})`
-                        : 'rgba(255,255,255,.06)',
+                        ? `linear-gradient(135deg, ${THEME.primary}, ${THEME.accent})`
+                        : 'rgba(6,182,212,0.15)',
+                      border: active ? 'none' : '1px solid rgba(6,182,212,0.3)',
                       boxShadow: active
-                        ? '0 8px 20px rgba(139,92,246,.35)'
-                        : 'inset 0 0 0 1px rgba(255,255,255,.08)'
+                        ? '0 8px 20px rgba(6,182,212,.4)'
+                        : 'none'
                     }}
                   >
                     {label}
@@ -82,21 +92,21 @@ export default function PDFCard() {
               href={pdfHref}
               target='_blank'
               rel='noopener noreferrer'
-              className='rounded-full px-4 py-2 text-xs font-medium text-white outline-none focus-visible:ring-2'
+              className='rounded-lg px-6 py-2.5 text-sm font-semibold text-white outline-none focus-visible:ring-2 focus-visible:ring-cyan-400/70 transition-all hover:scale-105'
               style={{
-                background: `linear-gradient(90deg, ${THEME.primary}, ${THEME.accent})`,
-                boxShadow: '0 8px 24px rgba(139,92,246,.35)'
+                background: `linear-gradient(135deg, ${THEME.primary}, ${THEME.accent})`,
+                boxShadow: '0 8px 24px rgba(6,182,212,.4)'
               }}
             >
-              Open in new tab
+              Open in New Tab
             </a>
             <a
               href={pdfHref}
               download={downloadName}
-              className='rounded-full border px-4 py-2 text-xs font-medium text-slate-100 outline-none focus-visible:ring-2 hover:bg-white/10'
+              className='rounded-lg border-2 px-6 py-2.5 text-sm font-semibold text-slate-100 outline-none focus-visible:ring-2 focus-visible:ring-cyan-400/70 transition-all hover:bg-cyan-500/20 hover:border-cyan-400/50'
               style={{
-                borderColor: 'rgba(255,255,255,.15)',
-                background: 'rgba(255,255,255,.06)'
+                borderColor: 'rgba(6,182,212,0.4)',
+                background: 'rgba(6,182,212,0.1)'
               }}
             >
               Download PDF
@@ -106,10 +116,10 @@ export default function PDFCard() {
 
         {/* INLINE VIEWER (object with fallback) */}
         <div
-          className='overflow-hidden rounded-2xl border'
+          className='overflow-hidden rounded-3xl border-2 border-cyan-500/30 shadow-2xl'
           style={{
-            borderColor: 'rgba(255,255,255,.12)',
-            boxShadow: '0 16px 40px rgba(0,0,0,.32)'
+            background: 'rgba(6,182,212,0.05)',
+            boxShadow: '0 20px 60px rgba(0,0,0,.4)'
           }}
         >
           {/* Prefer <object> for better native PDF support + built-in controls */}
@@ -130,21 +140,21 @@ export default function PDFCard() {
                   href={pdfHref}
                   target='_blank'
                   rel='noopener noreferrer'
-                  className='rounded-full px-4 py-2 text-sm font-medium text-white'
+                  className='rounded-lg px-6 py-2.5 text-sm font-semibold text-white transition-all hover:scale-105'
                   style={{
-                    background: `linear-gradient(90deg, ${THEME.primary}, ${THEME.accent})`,
-                    boxShadow: '0 8px 24px rgba(139,92,246,.35)'
+                    background: `linear-gradient(135deg, ${THEME.primary}, ${THEME.accent})`,
+                    boxShadow: '0 8px 24px rgba(6,182,212,.4)'
                   }}
                 >
-                  Open in new tab
+                  Open in New Tab
                 </a>
                 <a
                   href={pdfHref}
                   download={downloadName}
-                  className='rounded-full border px-4 py-2 text-sm font-medium text-slate-100 hover:bg-white/10'
+                  className='rounded-lg border-2 px-6 py-2.5 text-sm font-semibold text-slate-100 transition-all hover:bg-cyan-500/20 hover:border-cyan-400/50'
                   style={{
-                    borderColor: 'rgba(255,255,255,.15)',
-                    background: 'rgba(255,255,255,.06)'
+                    borderColor: 'rgba(6,182,212,0.4)',
+                    background: 'rgba(6,182,212,0.1)'
                   }}
                 >
                   Download PDF
@@ -154,10 +164,9 @@ export default function PDFCard() {
           </object>
         </div>
 
-        {/* Tiny helper line */}
-        <p className='mt-3 text-center text-xs text-slate-400'>
-          If pages look too small/large, use the Zoom buttons above (Fit / 100 /
-          125 / 150).
+        {/* Helper text */}
+        <p className='mt-6 text-center text-sm text-slate-400'>
+          Use the zoom controls above to adjust the view. For the best experience, download or open in a new tab.
         </p>
       </div>
     </section>

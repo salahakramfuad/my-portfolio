@@ -2,10 +2,10 @@ import Link from 'next/link'
 
 export default function NotFound() {
   return (
-    <div className="min-h-screen flex flex-col justify-center items-center bg-gradient-to-br from-[#22103a] via-[#0e1128] to-[#1b1336] px-4">
+    <div className="min-h-screen flex flex-col justify-center items-center bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 px-4">
       <div className="max-w-xl w-full text-center">
         <div className="mb-6">
-          <span className="inline-block rounded-full border px-4 py-1 text-xs font-medium tracking-wider uppercase text-violet-300 bg-white/5 border-white/10 opacity-85 shadow-md">
+          <span className="inline-block rounded-full border px-4 py-1 text-xs font-medium tracking-wider uppercase text-cyan-300 bg-cyan-500/10 border-cyan-500/20 opacity-85 shadow-md shadow-cyan-500/20">
             404 Error
           </span>
         </div>
@@ -18,7 +18,7 @@ export default function NotFound() {
         </p>
         <Link
           href="/"
-          className="inline-flex items-center gap-2 px-6 py-3 rounded-full font-medium bg-gradient-to-r from-violet-700 to-indigo-500 text-white shadow-lg hover:scale-105 transition-transform focus:outline-none focus-visible:ring-2 focus-visible:ring-white/80"
+          className="inline-flex items-center gap-2 px-6 py-3 rounded-full font-medium bg-gradient-to-r from-cyan-600 to-teal-600 text-white shadow-lg shadow-cyan-500/30 hover:scale-105 transition-transform focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400/80"
         >
           ← Back to Home
         </Link>
@@ -30,8 +30,8 @@ export default function NotFound() {
           />
           <defs>
             <linearGradient id="gradient" x1="0" y1="0" x2="0" y2="160" gradientUnits="userSpaceOnUse">
-              <stop stopColor="#a78bfa" stopOpacity="0.09" />
-              <stop offset="1" stopColor="#8b5cf6" stopOpacity="0.16" />
+              <stop stopColor="#06b6d4" stopOpacity="0.09" />
+              <stop offset="1" stopColor="#0891b2" stopOpacity="0.16" />
             </linearGradient>
           </defs>
         </svg>

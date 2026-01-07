@@ -128,20 +128,21 @@ const cx = (...c) => c.filter(Boolean).join(' ')
 export default function MyReads() {
   return (
     <section className='min-h-screen w-full mv-scope relative'>
-      {/* Scoped theme variables (Midnight Violet) */}
+      {/* Scoped theme variables (Ocean Teal) */}
       <style jsx>{`
         .mv-scope {
-          --primary: #6d28d9;
-          --accent: #8b5cf6;
-          --surface: rgba(255, 255, 255, 0.05);
-          --border: rgba(255, 255, 255, 0.1);
+          --primary: #06b6d4;
+          --accent: #0891b2;
+          --secondary: #22d3ee;
+          --surface: rgba(6, 182, 212, 0.1);
+          --border: rgba(6, 182, 212, 0.2);
           --ink: rgba(255, 255, 255, 0.18);
           --text: #f1f5f9;
         }
         :global(.light) .mv-scope {
-          --text: #1e1b4b;
-          --surface: #f5f3ff;
-          --border: rgba(0, 0, 0, 0.08);
+          --text: #0e172a;
+          --surface: rgba(6, 182, 212, 0.05);
+          --border: rgba(6, 182, 212, 0.15);
           --ink: rgba(0, 0, 0, 0.14);
         }
       `}</style>
@@ -159,28 +160,14 @@ export default function MyReads() {
         }}
       />
 
-      <div className='mx-auto max-w-7xl px-6 py-12 sm:px-8'>
-        {/* Title */}
-        <header className='mb-10 text-center'>
-          <div
-            className='mx-auto inline-flex items-center gap-3 rounded-full px-4 py-2 backdrop-blur-md'
-            style={{
-              border: `1px solid var(--border)`,
-              background: 'var(--surface)',
-              color: 'var(--text)'
-            }}
-          >
-            <BookOpen className='h-4 w-4' aria-hidden />
-            <span className='text-xs'>Curated shelf & interests</span>
-          </div>
-          <h2
-            className='mt-4 font-[Calistoga] text-3xl font-semibold tracking-tight sm:text-4xl'
-            style={{ color: 'var(--text)' }}
-          >
-            My Reads
+      <div className='mx-auto max-w-7xl px-6 py-20 sm:px-8'>
+        {/* Section Header */}
+        <header className='mb-16 text-center'>
+          <h2 className='text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-white mb-4'>
+            My <span className='bg-gradient-to-r from-cyan-400 to-teal-400 bg-clip-text text-transparent'>Reads</span>
           </h2>
-          <p className='mx-auto mt-2 max-w-2xl text-slate-300'>
-            A selection of books I’ve enjoyed recently—hover for a quick note.
+          <p className='text-xl text-slate-400 max-w-2xl mx-auto'>
+            A curated selection of books I've enjoyed recently—hover for a quick note.
           </p>
         </header>
 
@@ -194,11 +181,10 @@ export default function MyReads() {
           {books.map((b) => (
             <article
               key={b.id}
-              className='group relative overflow-hidden rounded-2xl shadow-xl transition-all hover:-translate-y-1 hover:shadow-2xl'
+              className='group relative overflow-hidden rounded-2xl border-2 border-cyan-500/20 shadow-xl transition-all hover:-translate-y-2 hover:shadow-2xl hover:border-cyan-400/40'
               style={{
-                border: `1px solid var(--border)`,
                 background: 'var(--surface)',
-                boxShadow: '0 10px 30px rgba(0,0,0,.28)'
+                boxShadow: '0 10px 30px rgba(0,0,0,.3)'
               }}
               aria-label={`${b.title} by ${b.author}`}
             >
@@ -235,7 +221,7 @@ export default function MyReads() {
                 <p className='mt-1 text-xs text-slate-400'>by {b.author}</p>
               </div>
 
-              {/* Violet glow on hover */}
+              {/* Teal glow on hover */}
               <span
                 aria-hidden
                 className='pointer-events-none absolute inset-0 rounded-2xl opacity-0 transition-opacity duration-300 group-hover:opacity-100'
@@ -251,11 +237,11 @@ export default function MyReads() {
         <div className='mt-12 grid grid-cols-1 gap-6 lg:grid-cols-2'>
           {/* Hobbies */}
           <section
-            className='rounded-3xl p-6 shadow-xl backdrop-blur-lg'
+            className='rounded-3xl border-2 border-cyan-500/20 p-8 shadow-xl backdrop-blur-xl'
             aria-labelledby='hobbies-heading'
             style={{
-              border: `1px solid var(--border)`,
-              background: 'var(--surface)'
+              background: 'var(--surface)',
+              boxShadow: '0 20px 40px rgba(0,0,0,.3)'
             }}
           >
             <div className='mb-4 flex items-center gap-2'>
@@ -298,11 +284,11 @@ export default function MyReads() {
 
           {/* Languages */}
           <section
-            className='rounded-3xl p-6 shadow-xl backdrop-blur-lg'
+            className='rounded-3xl border-2 border-cyan-500/20 p-8 shadow-xl backdrop-blur-xl'
             aria-labelledby='languages-heading'
             style={{
-              border: `1px solid var(--border)`,
-              background: 'var(--surface)'
+              background: 'var(--surface)',
+              boxShadow: '0 20px 40px rgba(0,0,0,.3)'
             }}
           >
             <div className='mb-4 flex items-center gap-2'>
