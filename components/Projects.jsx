@@ -15,12 +15,22 @@ const PALETTE = {
 // ---- Data ----
 const projects = [
   {
+    title: 'Robonauts Club',
+    description:
+      'Full-stack event management platform for Bangladesh\'s premier robotics and STEM education club. Built with Next.js 16, featuring role-based access control, event booking system, admin dashboard, Cloudinary image optimization, Firebase Firestore, and comprehensive SEO optimization.',
+    image: '/images/robonauts.png',
+    link: 'https://robonautsclub.com',
+    year: '2025',
+    tech: ['Next.js 16', 'TypeScript', 'Firebase', 'Cloudinary', 'RBAC', 'SEO']
+  },
+  {
     title: 'Hope TTC',
     description:
-      'Conversion-focused site for an education provider, built on Next.js.',
+      'Modern education platform for IELTS, SAT, Robotics, and Study Abroad programs. Features custom theme system with light/dark mode, responsive UI with Next.js App Router, animated hero sections, reusable components, and optimized performance.',
     image: '/images/hope-ttc.png',
     link: 'https://www.hopettc.com',
-    year: '2025'
+    year: '2025',
+    tech: ['Next.js 14', 'TypeScript', 'Tailwind CSS v4', 'Light/Dark Mode']
   },
   {
     title: 'International Hope School Bangladesh',
@@ -151,9 +161,28 @@ export default function Projects() {
                 <h2 className='text-3xl lg:text-4xl font-bold text-white mb-4'>
                   {featuredProject.title}
                 </h2>
-                <p className='text-lg text-slate-300 mb-6 leading-relaxed'>
+                <p className='text-lg text-slate-300 mb-4 leading-relaxed'>
                   {featuredProject.description}
                 </p>
+                
+                {/* Tech Stack */}
+                {featuredProject.tech && (
+                  <div className='flex flex-wrap gap-2 mb-6'>
+                    {featuredProject.tech.map((tech) => (
+                      <span
+                        key={tech}
+                        className='inline-flex items-center rounded-lg border px-3 py-1 text-xs font-medium text-slate-300'
+                        style={{
+                          borderColor: 'rgba(59,130,246,0.3)',
+                          background: 'rgba(59,130,246,0.08)'
+                        }}
+                      >
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
+                )}
+                
                 <div className='inline-flex items-center gap-2 text-blue-300 font-semibold group-hover:gap-4 transition-all'>
                   View Project
                   <svg className='w-5 h-5 group-hover:translate-x-1 transition-transform' fill='none' viewBox='0 0 24 24' stroke='currentColor'>

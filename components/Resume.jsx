@@ -1,6 +1,6 @@
 'use client'
 
-import { useMemo, useState } from 'react'
+import { useMemo, useState, useEffect } from 'react'
 
 const THEME = {
   primary: '#3b82f6',
@@ -9,9 +9,52 @@ const THEME = {
 }
 
 export default function PDFCard() {
-  // Path without spaces; place in /public/resume/resume.pdf
-  const pdfHref = '/resume/resume.pdf'
-  const downloadName = 'Mohammad_Salah_Akram_Fuad_CV.pdf'
+  // Default fallback
+  const defaultPdfHref = '/resume/resume.pdf'
+  const defaultDownloadName = 'Mohammad_Salah_Akram_Fuad_CV.pdf'
+  
+  const [pdfHref, setPdfHref] = useState(defaultPdfHref)
+  const [downloadName, setDownloadName] = useState(defaultDownloadName)
+  const [loading, setLoading] = useState(true)
+
+  // Fetch resume from Firebase
+  useEffect(() => {
+    fetch('/api/resume')
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.url) {
+          setPdfHref(data.url)
+          setDownloadName(data.filename || defaultDownloadName)
+        }
+      })
+      .catch((err) => {
+        console.error('Failed to load resume:', err)
+        // Keep default values
+      })
+      .finally(() => {
+        setLoading(false)
+      })
+  }, [])
+
+  const trackDownload = async () => {
+    try {
+      await fetch('/api/resume/download', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          userAgent: navigator.userAgent,
+          ip: null // IP will be captured server-side
+        })
+      })
+    } catch (error) {
+      console.error('Failed to track download:', error)
+      // Don't block the download if tracking fails
+    }
+  }
+
+  const handleDownload = () => {
+    trackDownload()
+  }
 
   // Simple zoom presets; we just change the hash param and let the browser viewer handle it
   const [zoom, setZoom] = useState('page-fit') // 'page-fit' | '100' | '125' | '150' etc.
@@ -103,6 +146,7 @@ export default function PDFCard() {
             <a
               href={pdfHref}
               download={downloadName}
+              onClick={handleDownload}
               className='rounded-lg border-2 px-6 py-2.5 text-sm font-semibold text-slate-100 outline-none focus-visible:ring-2 focus-visible:ring-blue-400/70 transition-all hover:bg-blue-500/10 hover:border-blue-400/40'
               style={{
                 borderColor: 'rgba(59,130,246,0.4)',
@@ -151,6 +195,7 @@ export default function PDFCard() {
                 <a
                   href={pdfHref}
                   download={downloadName}
+                  onClick={handleDownload}
                   className='rounded-lg border-2 px-6 py-2.5 text-sm font-semibold text-slate-100 transition-all hover:bg-blue-500/10 hover:border-blue-400/40'
                   style={{
                     borderColor: 'rgba(59,130,246,0.4)',

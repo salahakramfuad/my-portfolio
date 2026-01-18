@@ -1,72 +1,66 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { auth } from '../../lib/firebase'
+import { useRouter } from 'next/navigation'
+import Link from 'next/link'
+import { auth } from '@/lib/firebase'
 import {
   onAuthStateChanged,
-  createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
-  sendEmailVerification,
   signOut
 } from 'firebase/auth'
 
 export default function LoginPage() {
-  const [mode, setMode] = useState('login') // 'login' | 'register'
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [user, setUser] = useState(null)
   const [loading, setLoading] = useState(true)
-  const [message, setMessage] = useState('')
   const [error, setError] = useState('')
+  const router = useRouter()
 
   useEffect(() => {
-    const unsub = onAuthStateChanged(auth, (firebaseUser) => {
+    const unsubscribe = onAuthStateChanged(auth, (firebaseUser) => {
       setUser(firebaseUser)
       setLoading(false)
+      
+      // Redirect if logged in and verified
+      if (firebaseUser && firebaseUser.emailVerified) {
+        router.push('/dashboard')
+        return
+      }
+      
+      // If logged in but not verified, sign out to show form
+      if (firebaseUser && !firebaseUser.emailVerified) {
+        signOut(auth).catch(console.error)
+        setUser(null)
+      }
     })
-    return () => unsub()
-  }, [])
-
-  // 🔁 Always redirect logged-in + verified users to /output
-  useEffect(() => {
-    if (!loading && user && user.emailVerified) {
-      window.location.href = '/output'
-    }
-  }, [loading, user])
-
-  const resetFeedback = () => {
-    setMessage('')
-    setError('')
-  }
-
-  const handleRegister = async (e) => {
-    e.preventDefault()
-    resetFeedback()
-    try {
-      const cred = await createUserWithEmailAndPassword(auth, email, password)
-      await sendEmailVerification(cred.user)
-      setMessage(
-        'Account created! A verification email has been sent. Please check your inbox.'
-      )
-    } catch (err) {
-      console.error(err)
-      setError(err.message || 'Failed to register.')
-    }
-  }
+    return () => unsubscribe()
+  }, [router])
 
   const handleLogin = async (e) => {
     e.preventDefault()
-    resetFeedback()
+    setError('')
     try {
       const cred = await signInWithEmailAndPassword(auth, email, password)
       if (!cred.user.emailVerified) {
-        setMessage(
-          'Your email is not verified yet. Please check your inbox and verify.'
-        )
-        await signOut(auth) // optional: force logout if not verified
+        setError('Please verify your email before logging in. Check your inbox.')
+        await signOut(auth) // Force logout if not verified
       } else {
-        // this will also be handled by the effect, but keeps UX snappy
-        window.location.href = '/output'
+        // Create session and redirect to dashboard
+        try {
+          const token = await cred.user.getIdToken()
+          await fetch('/api/auth/session', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ idToken: token })
+          })
+          router.push('/dashboard')
+        } catch (sessionError) {
+          console.error('Session creation error:', sessionError)
+          // Still redirect even if session creation fails
+          router.push('/dashboard')
+        }
       }
     } catch (err) {
       console.error(err)
@@ -74,68 +68,53 @@ export default function LoginPage() {
     }
   }
 
-  const handleLogout = async () => {
-    resetFeedback()
-    await signOut(auth)
-  }
-
   if (loading) {
     return (
-      <div className='min-h-screen flex items-center justify-center bg-slate-950 text-slate-50'>
-        Loading...
+      <div className='min-h-screen flex items-center justify-center bg-slate-950'>
+        <div className='inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-blue-400 border-r-transparent'></div>
       </div>
     )
   }
 
   return (
-    <div className='min-h-screen flex items-center justify-center bg-slate-950 text-slate-50'>
-      <div className='w-full max-w-md rounded-2xl border border-slate-800 bg-slate-900/70 p-6 shadow-xl'>
-        <h1 className='mb-2 text-2xl font-semibold text-center'>
-          HOPE TTC Portal
-        </h1>
-        <p className='mb-6 text-sm text-slate-300 text-center'>
-          {mode === 'login'
-            ? 'Sign in with your email and password.'
-            : 'Create an account and verify your email.'}
-        </p>
-
-        {user && user.emailVerified && (
-          <div className='mb-4 rounded-xl bg-emerald-500/10 border border-emerald-500/40 p-3 text-sm'>
-            Logged in as <span className='font-medium'>{user.email}</span>
+    <div className='min-h-screen flex items-center justify-center bg-slate-950 px-4'>
+      <div className='w-full max-w-md rounded-2xl border border-blue-500/20 bg-slate-900/80 p-8 shadow-xl backdrop-blur-xl'>
+        <div className='mb-6 text-center'>
+          <div className='mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-2xl bg-blue-600 text-2xl font-bold'>
+            F
           </div>
-        )}
-
-        {message && (
-          <div className='mb-3 rounded-xl bg-emerald-500/10 border border-emerald-500/40 p-3 text-xs'>
-            {message}
-          </div>
-        )}
+          <h1 className='text-2xl font-bold text-white'>salahakramfuad&apos;s Dashboard</h1>
+          <p className='mt-2 text-sm text-slate-400'>
+            Log in to salahakramfuad&apos;s dashboard
+          </p>
+        </div>
 
         {error && (
-          <div className='mb-3 rounded-xl bg-red-500/10 border border-red-500/40 p-3 text-xs'>
+          <div className='mb-4 rounded-xl border border-red-500/40 bg-red-500/10 p-3 text-sm text-red-300'>
             {error}
           </div>
         )}
 
-        {!user && (
-          <form
-            className='space-y-4'
-            onSubmit={mode === 'login' ? handleLogin : handleRegister}
-          >
+        <form
+          className='space-y-4'
+          onSubmit={handleLogin}
+        >
             <div>
-              <label className='block text-xs mb-1 text-slate-300'>Email</label>
+              <label className='mb-2 block text-sm font-medium text-slate-300'>
+                Email
+              </label>
               <input
                 type='email'
                 required
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className='w-full rounded-xl border border-slate-700 bg-slate-900 px-3 py-2 text-sm outline-none focus:border-emerald-500'
+                className='w-full rounded-lg border border-blue-500/20 bg-slate-800/50 px-4 py-2.5 text-sm text-white outline-none transition-colors focus:border-blue-500/50 focus:bg-slate-800'
                 placeholder='you@example.com'
               />
             </div>
 
             <div>
-              <label className='block text-xs mb-1 text-slate-300'>
+              <label className='mb-2 block text-sm font-medium text-slate-300'>
                 Password
               </label>
               <input
@@ -143,59 +122,27 @@ export default function LoginPage() {
                 required
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className='w-full rounded-xl border border-slate-700 bg-slate-900 px-3 py-2 text-sm outline-none focus:border-emerald-500'
+                className='w-full rounded-lg border border-blue-500/20 bg-slate-800/50 px-4 py-2.5 text-sm text-white outline-none transition-colors focus:border-blue-500/50 focus:bg-slate-800'
                 placeholder='••••••••'
+                minLength={6}
               />
             </div>
 
             <button
               type='submit'
-              className='w-full rounded-xl bg-emerald-500 px-4 py-2 text-sm font-semibold text-slate-950 hover:bg-emerald-400 transition'
+              className='w-full rounded-lg bg-blue-600 px-4 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-blue-700'
             >
-              {mode === 'login' ? 'Login' : 'Register & Send Verification'}
+              Sign In
             </button>
           </form>
-        )}
 
-        {user && (
-          <button
-            onClick={handleLogout}
-            className='mt-4 w-full rounded-xl bg-slate-800 px-4 py-2 text-sm font-medium hover:bg-slate-700'
+        <div className='mt-4 text-center'>
+          <Link
+            href='/'
+            className='text-sm text-slate-500 hover:text-slate-400 transition-colors'
           >
-            Logout
-          </button>
-        )}
-
-        <div className='mt-4 text-center text-xs text-slate-400'>
-          {mode === 'login' ? (
-            <>
-              Don&apos;t have an account?{' '}
-              <button
-                type='button'
-                onClick={() => {
-                  resetFeedback()
-                  setMode('register')
-                }}
-                className='text-emerald-400 hover:underline'
-              >
-                Register
-              </button>
-            </>
-          ) : (
-            <>
-              Already have an account?{' '}
-              <button
-                type='button'
-                onClick={() => {
-                  resetFeedback()
-                  setMode('login')
-                }}
-                className='text-emerald-400 hover:underline'
-              >
-                Login
-              </button>
-            </>
-          )}
+            ← Back to Portfolio
+          </Link>
         </div>
       </div>
     </div>

@@ -2,6 +2,7 @@
 
 import React from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
 
 const NAV = [
   { label: 'Projects', href: '#projects' },
@@ -72,8 +73,8 @@ export default function Header() {
             onClick={() => handleNavClick('#hero')}
             className='flex items-center gap-2 text-sm font-semibold tracking-tight text-slate-50'
           >
-            <div className='flex h-10 w-10 items-center justify-center rounded-2xl bg-blue-600 text-sm font-bold shadow-lg'>
-              F
+            <div className='flex h-10 w-10 items-center justify-center rounded-2xltext-sm font-bold shadow-lg overflow-hidden'>
+              <Image src='/images/Fuad.png' alt='Logo' width={40} height={40} className='rounded-full' />
             </div>
             <span className='text-lg sm:text-xl font-bold'>
               <span className='text-blue-400'>Mohammad Salah Akram </span>
@@ -117,16 +118,6 @@ export default function Header() {
                 )
               })}
             </ul>
-
-            {/* Desktop CTAs */}
-            <div className='flex items-center gap-2'>
-              <Link
-                href='/login'
-                className='rounded-full border border-emerald-400/60 bg-emerald-500/10 px-4 py-2 text-xs sm:text-sm font-semibold text-emerald-300 hover:bg-emerald-400/20 hover:text-emerald-50 outline-none focus-visible:ring-2 focus-visible:ring-emerald-400/70 transition-colors'
-              >
-                Portal Login
-              </Link>
-            </div>
           </div>
 
           {/* Mobile hamburger */}
@@ -230,13 +221,6 @@ export default function Header() {
               >
                 Hire Me
               </a>
-              <Link
-                href='/login'
-                onClick={() => setOpen(false)}
-                className='inline-flex w-full items-center justify-center rounded-full border border-emerald-400/60 bg-emerald-500/10 px-4 py-2.5 text-sm font-semibold text-emerald-300 hover:bg-emerald-400/20 hover:text-emerald-50 outline-none focus-visible:ring-2 focus-visible:ring-emerald-400/70'
-              >
-                Portal Login
-              </Link>
             </div>
           </div>
         </div>

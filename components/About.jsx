@@ -28,12 +28,24 @@ export default function AboutPage() {
   const experience = [
     {
       title: 'Full Stack Developer',
-      company: 'Hope TTC • Oct 2025 – Present',
+      company: 'Hope TTC • Oct 2025 – Dec 2025',
       summary:
-        'Building an Airbnb-style marketplace with listings, search, booking, and messaging flows.',
-      stack: ['React', 'Next.js', 'Tailwind CSS', 'Framer Motion'],
+        'Developed a modern education platform for an institute offering IELTS, SAT, Robotics, and Study Abroad programs. Built custom theme system with light/dark mode, smooth animations, reusable UI components, responsive layouts using Next.js 14 App Router, TypeScript, and Tailwind CSS v4. Implemented program-specific pages including Robotics with futuristic design, IELTS pages, and Study Overseas with animated gradients.',
+      stack: ['Next.js 14', 'TypeScript', 'Tailwind CSS v4', 'Light/Dark Mode', 'Lucide Icons'],
       links: {
         site: 'https://www.hopettc.com',
+        repo: null,
+        caseStudy: null
+      }
+    },
+    {
+      title: 'Freelance Full Stack Developer',
+      company: 'Robonauts Club • Dec 2025 – Jan 2026',
+      summary:
+        'Developed a comprehensive event management platform for Bangladesh\'s premier robotics and STEM education club. Implemented role-based access control (RBAC), event booking system with email confirmations, admin dashboard, Cloudinary image optimization, and full SEO implementation. Built with Next.js 16, TypeScript, Firebase Firestore, and Resend email service.',
+      stack: ['Next.js 16', 'TypeScript', 'Firebase', 'Cloudinary', 'Firestore', 'RBAC', 'SEO'],
+      links: {
+        site: 'https://robonautsclub.com',
         repo: null,
         caseStudy: null
       }
