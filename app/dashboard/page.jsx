@@ -609,10 +609,20 @@ export default function ProjectsPage() {
                     <input
                       type='text'
                       value={project.link}
-                      onChange={(e) => updateProject(index, 'link', e.target.value)}
+                      onChange={(e) => {
+                        let value = e.target.value.trim()
+                        // Auto-add https:// if no protocol is provided
+                        if (value && !value.startsWith('http://') && !value.startsWith('https://')) {
+                          value = `https://${value}`
+                        }
+                        updateProject(index, 'link', value)
+                      }}
                       className='w-full rounded-lg border border-blue-500/20 bg-slate-800/50 px-4 py-2 text-sm text-white outline-none focus:border-blue-500/50'
-                      placeholder='https://...'
+                      placeholder='https://example.com or example.com'
                     />
+                    <p className='mt-1 text-xs text-slate-500'>
+                      Enter URL with or without https:// (will be added automatically)
+                    </p>
                   </div>
                 </div>
                 <div className='grid grid-cols-2 gap-4'>
@@ -681,7 +691,9 @@ export default function ProjectsPage() {
                     </h3>
                     {project.link && (
                       <a
-                        href={project.link}
+                        href={project.link.startsWith('http://') || project.link.startsWith('https://') 
+                          ? project.link 
+                          : `https://${project.link}`}
                         target='_blank'
                         rel='noopener noreferrer'
                         className='text-blue-400 hover:text-blue-300 flex-shrink-0'

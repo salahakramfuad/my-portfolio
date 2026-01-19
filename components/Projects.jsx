@@ -137,7 +137,9 @@ export default function Projects() {
 
         {/* Featured Project */}
         <motion.a
-          href={featuredProject.link}
+          href={featuredProject.link?.startsWith('http://') || featuredProject.link?.startsWith('https://') 
+            ? featuredProject.link 
+            : `https://${featuredProject.link || ''}`}
           target='_blank'
           rel='noopener noreferrer'
           className='group block mb-16'
@@ -218,7 +220,9 @@ export default function Projects() {
           {otherProjects.map((project, i) => (
             <motion.a
               key={project.link}
-              href={project.link}
+              href={project.link?.startsWith('http://') || project.link?.startsWith('https://') 
+                ? project.link 
+                : `https://${project.link || ''}`}
               target='_blank'
               rel='noopener noreferrer'
               aria-label={`${project.title} — open project site`}
