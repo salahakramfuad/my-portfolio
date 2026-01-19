@@ -1,5 +1,5 @@
 'use client'
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import Image from 'next/image'
 import { motion, MotionConfig } from 'framer-motion'
 import {
@@ -24,53 +24,35 @@ const PALETTE = {
 }
 
 export default function AboutPage() {
-  // Experience — latest first
-  const experience = [
-    {
-      title: 'Full Stack Developer',
-      company: 'Hope TTC • Oct 2025 – Dec 2025',
-      summary:
-        'Developed a modern education platform for an institute offering IELTS, SAT, Robotics, and Study Abroad programs. Built custom theme system with light/dark mode, smooth animations, reusable UI components, responsive layouts using Next.js 14 App Router, TypeScript, and Tailwind CSS v4. Implemented program-specific pages including Robotics with futuristic design, IELTS pages, and Study Overseas with animated gradients.',
-      stack: ['Next.js 14', 'TypeScript', 'Tailwind CSS v4', 'Light/Dark Mode', 'Lucide Icons'],
-      links: {
-        site: 'https://www.hopettc.com',
-        repo: null,
-        caseStudy: null
-      }
-    },
-    {
-      title: 'Freelance Full Stack Developer',
-      company: 'Robonauts Club • Dec 2025 – Jan 2026',
-      summary:
-        'Developed a comprehensive event management platform for Bangladesh\'s premier robotics and STEM education club. Implemented role-based access control (RBAC), event booking system with email confirmations, admin dashboard, Cloudinary image optimization, and full SEO implementation. Built with Next.js 16, TypeScript, Firebase Firestore, and Resend email service.',
-      stack: ['Next.js 16', 'TypeScript', 'Firebase', 'Cloudinary', 'Firestore', 'RBAC', 'SEO'],
-      links: {
-        site: 'https://robonautsclub.com',
-        repo: null,
-        caseStudy: null
-      }
-    },
-    {
-      title: 'Mobile App Developer (Expo)',
-      company: 'Party-Room Booking App • 2025',
-      summary:
-        'Hong Kong–style party/mahjong room marketplace using Expo Router and React Native with modern UI/UX design.',
-      stack: ['Expo', 'React Native', 'TypeScript', 'Expo Router'],
-      links: { site: null, repo: null, caseStudy: null }
-    },
-    {
-      title: 'Frontend Developer',
-      company: 'International Hope Company LTD • 2024–2025',
-      summary:
-        'Delivered modern UI features and performance improvements across key pages.',
-      stack: ['Next.js', 'TypeScript', 'Tailwind CSS'],
-      links: {
-        site: 'https://www.ihsb.vercel.app',
-        repo: null,
-        caseStudy: null
+  const [experience, setExperience] = useState([])
+  const [skills, setSkills] = useState([])
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        // Fetch experience
+        const expRes = await fetch('/api/experience')
+        const expData = await expRes.json()
+        if (expRes.ok) {
+          setExperience(expData.experience || [])
+        }
+
+        // Fetch skills
+        const skillsRes = await fetch('/api/skills')
+        const skillsData = await skillsRes.json()
+        if (skillsRes.ok) {
+          setSkills(skillsData.skills || [])
+        }
+      } catch (err) {
+        console.error('Error fetching data:', err)
+      } finally {
+        setLoading(false)
       }
     }
-  ]
+
+    fetchData()
+  }, [])
 
   const education = [
     {
@@ -80,18 +62,6 @@ export default function AboutPage() {
     }
   ]
 
-  const skills = [
-    'React',
-    'TypeScript',
-    'JavaScript',
-    'Tailwind CSS',
-    'Next.js',
-    'MySQL',
-    'Drizzle',
-    'shadcn/ui',
-    'PostgreSQL',
-    'GitHub'
-  ]
 
   const socials = [
     {
@@ -110,6 +80,20 @@ export default function AboutPage() {
       icon: <FaEnvelope aria-hidden />
     }
   ]
+
+  if (loading) {
+    return (
+      <section
+        id='about'
+        aria-labelledby='about-heading'
+        className='relative min-h-screen'
+      >
+        <div className='flex items-center justify-center py-20'>
+          <div className='inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-blue-400 border-r-transparent'></div>
+        </div>
+      </section>
+    )
+  }
 
   return (
     <MotionConfig reducedMotion='user'>
@@ -264,7 +248,8 @@ export default function AboutPage() {
             </h2>
 
             <ol className='relative ml-3 border-l border-white/10'>
-              {experience.map(({ title, company, summary, stack, links }) => (
+              {experience && experience.length > 0 ? (
+                experience.map(({ title, company, summary, stack, links }) => (
                 <li key={`${title}-${company}`} className='mb-8 ml-5'>
                   <span
                     className='absolute -left-2 mt-1 inline-flex h-3 w-3 rounded-full ring-2 ring-slate-900'
@@ -276,7 +261,20 @@ export default function AboutPage() {
                     style={{ background: 'rgba(255,255,255,0.05)' }}
                   >
                     <h3 className='text-lg font-semibold text-white'>
-                      {title}
+                      {links?.site ? (
+                        <a
+                          href={links.site.startsWith('http://') || links.site.startsWith('https://') 
+                            ? links.site 
+                            : `https://${links.site}`}
+                          target='_blank'
+                          rel='noopener noreferrer'
+                          className='text-white hover:text-blue-400 transition-colors'
+                        >
+                          {title}
+                        </a>
+                      ) : (
+                        title
+                      )}
                     </h3>
                     <p className='text-sm text-slate-300'>{company}</p>
                     {summary && (
@@ -302,22 +300,8 @@ export default function AboutPage() {
                     ) : null}
 
                     {/* Links */}
-                    {(links?.site || links?.repo || links?.caseStudy) && (
+                    {(links?.repo || links?.caseStudy) && (
                       <div className='mt-4 flex flex-wrap gap-2'>
-                        {links.site && (
-                          <a
-                            href={links.site}
-                            target='_blank'
-                            rel='noopener noreferrer'
-                            className='inline-flex items-center rounded-full border px-3 py-1.5 text-xs font-medium text-slate-100 backdrop-blur-md outline-none transition-colors hover:bg-white/10 focus-visible:ring-2'
-                            style={{
-                              borderColor: 'rgba(255,255,255,.15)',
-                              background: PALETTE.surface
-                            }}
-                          >
-                            View Site →
-                          </a>
-                        )}
                         {links.repo && (
                           <a
                             href={links.repo}
@@ -334,7 +318,11 @@ export default function AboutPage() {
                         )}
                         {links.caseStudy && (
                           <a
-                            href={links.caseStudy}
+                            href={links.caseStudy.startsWith('http://') || links.caseStudy.startsWith('https://') 
+                              ? links.caseStudy 
+                              : `https://${links.caseStudy}`}
+                            target='_blank'
+                            rel='noopener noreferrer'
                             className='inline-flex items-center rounded-full border px-3 py-1.5 text-xs font-medium text-slate-100 backdrop-blur-md outline-none transition-colors hover:bg-white/10 focus-visible:ring-2'
                             style={{
                               borderColor: 'rgba(255,255,255,.15)',
@@ -348,7 +336,12 @@ export default function AboutPage() {
                     )}
                   </div>
                 </li>
-              ))}
+                ))
+              ) : (
+                <li className='ml-5'>
+                  <p className='text-slate-400'>No experience entries available.</p>
+                </li>
+              )}
             </ol>
               </motion.section>
 
@@ -416,24 +409,36 @@ export default function AboutPage() {
               Skills
             </h2>
             <div className='grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5 xl:grid-cols-6'>
-              {skills.map((skill) => (
-                <div
-                  key={skill}
-                  className='group relative overflow-hidden rounded-xl border px-4 py-3 text-center font-medium text-slate-100 transition-all'
-                  style={{
-                    borderColor: 'rgba(59,130,246,0.3)',
-                    background: 'rgba(59,130,246,0.08)',
-                    boxShadow: '0 6px 18px rgba(0,0,0,0.25)'
-                  }}
-                >
-                  <span
-                    aria-hidden
-                    className='pointer-events-none absolute inset-0 -translate-x-1/2 bg-gradient-to-r from-transparent via-white/10 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100'
-                    style={{ transform: 'skewX(-15deg)' }}
-                  />
-                  {skill}
-                </div>
-              ))}
+              {skills && skills.length > 0 ? (
+                skills.map((skill) => {
+                  // Extract skill name from object or use string directly
+                  const skillName = typeof skill === 'string' ? skill : (skill?.name || skill?.id || '')
+                  const skillId = typeof skill === 'string' ? skill : (skill?.id || skill?.name || skill)
+                  
+                  return (
+                    <div
+                      key={skillId}
+                      className='group relative overflow-hidden rounded-xl border px-4 py-3 text-center font-medium text-slate-100 transition-all'
+                      style={{
+                        borderColor: 'rgba(59,130,246,0.3)',
+                        background: 'rgba(59,130,246,0.08)',
+                        boxShadow: '0 6px 18px rgba(0,0,0,0.25)'
+                      }}
+                    >
+                      <span
+                        aria-hidden
+                        className='pointer-events-none absolute inset-0 -translate-x-1/2 bg-gradient-to-r from-transparent via-white/10 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100'
+                        style={{ transform: 'skewX(-15deg)' }}
+                      />
+                      {skillName}
+                    </div>
+                  )
+                })
+              ) : (
+                <p className='col-span-full text-center text-slate-400 py-4'>
+                  No skills available.
+                </p>
+              )}
             </div>
           </motion.section>
         </div>

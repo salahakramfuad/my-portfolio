@@ -8,14 +8,30 @@ import { adminDb } from '@/lib/firebase-admin'
  */
 export async function GET() {
   try {
-    const snapshot = await adminDb.collection('portfolio').doc('skills').get()
-    
-    if (!snapshot.exists) {
-      return NextResponse.json({ skills: [] })
+    let snapshot
+    try {
+      // Try to order by 'order' field if it exists
+      snapshot = await adminDb.collection('skills')
+        .orderBy('order', 'asc')
+        .get()
+    } catch (orderError) {
+      // If order field doesn't exist or isn't indexed, get all and sort manually
+      snapshot = await adminDb.collection('skills').get()
     }
+    
+    const skills = snapshot.docs
+      .map((doc) => ({
+        id: doc.id,
+        ...doc.data()
+      }))
+      .sort((a, b) => {
+        // Sort by order field if it exists, otherwise maintain insertion order
+        const orderA = a.order !== undefined ? a.order : Infinity
+        const orderB = b.order !== undefined ? b.order : Infinity
+        return orderA - orderB
+      })
 
-    const data = snapshot.data()
-    return NextResponse.json({ skills: data.items || [] })
+    return NextResponse.json({ skills })
   } catch (error) {
     console.error('Get skills error:', error)
     return NextResponse.json(
@@ -26,7 +42,7 @@ export async function GET() {
 }
 
 /**
- * POST /api/skills - Create or update skills
+ * POST /api/skills - Create or update skills (bulk save)
  */
 export async function POST(request) {
   try {
@@ -41,10 +57,30 @@ export async function POST(request) {
       )
     }
 
-    await adminDb.collection('portfolio').doc('skills').set({
-      items: skills,
-      updatedAt: new Date().toISOString()
+    const batch = adminDb.batch()
+    const skillsRef = adminDb.collection('skills')
+
+    // Delete all existing skills
+    const existingSnapshot = await skillsRef.get()
+    existingSnapshot.docs.forEach((doc) => {
+      batch.delete(doc.ref)
     })
+
+    // Add all new skills
+    skills.forEach((skill, index) => {
+      const newDocRef = skillsRef.doc()
+      // Handle both string and object formats
+      const skillData = typeof skill === 'string' 
+        ? { name: skill, order: index }
+        : { ...skill, order: index }
+      
+      batch.set(newDocRef, {
+        ...skillData,
+        updatedAt: new Date().toISOString()
+      })
+    })
+
+    await batch.commit()
 
     return NextResponse.json({ success: true, skills })
   } catch (error) {

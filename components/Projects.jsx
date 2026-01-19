@@ -1,5 +1,5 @@
 'use client'
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { motion, MotionConfig } from 'framer-motion'
 import Image from 'next/image'
 
@@ -11,51 +11,6 @@ const PALETTE = {
   surface: 'rgba(59,130,246,0.05)',
   gridInk: 'rgba(255,255,255,.18)'
 }
-
-// ---- Data ----
-const projects = [
-  {
-    title: 'Robonauts Club',
-    description:
-      'Full-stack event management platform for Bangladesh\'s premier robotics and STEM education club. Built with Next.js 16, featuring role-based access control, event booking system, admin dashboard, Cloudinary image optimization, Firebase Firestore, and comprehensive SEO optimization.',
-    image: '/images/robonauts.png',
-    link: 'https://robonautsclub.com',
-    year: '2025',
-    tech: ['Next.js 16', 'TypeScript', 'Firebase', 'Cloudinary', 'RBAC', 'SEO']
-  },
-  {
-    title: 'Hope TTC',
-    description:
-      'Modern education platform for IELTS, SAT, Robotics, and Study Abroad programs. Features custom theme system with light/dark mode, responsive UI with Next.js App Router, animated hero sections, reusable components, and optimized performance.',
-    image: '/images/hope-ttc.png',
-    link: 'https://www.hopettc.com',
-    year: '2025',
-    tech: ['Next.js 14', 'TypeScript', 'Tailwind CSS v4', 'Light/Dark Mode']
-  },
-  {
-    title: 'International Hope School Bangladesh',
-    description:
-      'Redesigned the school website using Next.js and Tailwind CSS.',
-    image: '/images/school.png',
-    link: 'https://ihsb.vercel.app/',
-    year: '2024'
-  },
-  {
-    title: 'Library Management System',
-    description:
-      'Modern platform for browsing, searching, and managing library materials.',
-    image: '/images/library.png',
-    link: 'https://ihsblibrary.vercel.app/',
-    year: '2025'
-  },
-  {
-    title: 'Healthcare Management System',
-    description: 'Professional platform for streamlined healthcare ops.',
-    image: '/images/Healthcare.png',
-    link: 'https://healthcare-lyart.vercel.app/',
-    year: '2024'
-  }
-]
 
 // ---- Motion Variants ----
 const EASE = [0.22, 1, 0.36, 1]
@@ -72,8 +27,66 @@ const cardVariants = {
 }
 
 export default function Projects() {
-  const featuredProject = projects[0]
-  const otherProjects = projects.slice(1)
+  const [projects, setProjects] = useState([])
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState(null)
+
+  useEffect(() => {
+    const fetchProjects = async () => {
+      try {
+        const res = await fetch('/api/projects')
+        const data = await res.json()
+        if (res.ok) {
+          setProjects(data.projects || [])
+        } else {
+          setError('Failed to load projects')
+        }
+      } catch (err) {
+        console.error('Error fetching projects:', err)
+        setError('Failed to load projects')
+      } finally {
+        setLoading(false)
+      }
+    }
+
+    fetchProjects()
+  }, [])
+
+  if (loading) {
+    return (
+      <section
+        id='projects'
+        className='relative mx-auto max-w-7xl px-6 py-20 sm:px-8'
+      >
+        <div className='flex items-center justify-center py-20'>
+          <div className='inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-blue-400 border-r-transparent'></div>
+        </div>
+      </section>
+    )
+  }
+
+  if (error || !projects || projects.length === 0) {
+    return (
+      <section
+        id='projects'
+        className='relative mx-auto max-w-7xl px-6 py-20 sm:px-8'
+      >
+        <div className='text-center py-20'>
+          <p className='text-slate-400'>
+            {error || 'No projects available at the moment.'}
+          </p>
+        </div>
+      </section>
+    )
+  }
+
+  // Find featured project or use first one as fallback
+  const featuredProject = projects.find(p => p.featured === true) || projects[0]
+  const otherProjects = projects.filter(p => p !== featuredProject)
+
+  if (!featuredProject) {
+    return null
+  }
 
   return (
     <MotionConfig reducedMotion='user'>

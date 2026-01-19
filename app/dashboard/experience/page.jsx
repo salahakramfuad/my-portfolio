@@ -29,21 +29,67 @@ export default function ExperiencePage() {
     }
   }
 
-  const handleSave = async () => {
+  const handleSave = async (index) => {
+    const currentExperience = Array.isArray(experience) ? experience : []
+    
+    if (index < 0 || index >= currentExperience.length) {
+      setError('Invalid experience index')
+      return
+    }
+
+    const entry = currentExperience[index]
+    
     setSaving(true)
     setMessage('')
     setError('')
+    
     try {
-      const res = await fetch('/api/experience', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ experience })
-      })
+      // Sanitize experience entry data to ensure only serializable data
+      const sanitizedEntry = {
+        title: String(entry.title || ''),
+        company: String(entry.company || ''),
+        summary: String(entry.summary || ''),
+        stack: Array.isArray(entry.stack) ? entry.stack.map(s => String(s)) : [],
+        links: {
+          site: entry.links?.site ? String(entry.links.site) : '',
+          repo: entry.links?.repo ? String(entry.links.repo) : '',
+          caseStudy: entry.links?.caseStudy ? String(entry.links.caseStudy) : ''
+        }
+      }
+
+      let res
+      if (entry.id) {
+        // Update existing experience entry
+        res = await fetch('/api/experience', {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ id: entry.id, ...sanitizedEntry })
+        })
+      } else {
+        // Create new experience entry
+        res = await fetch('/api/experience', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(sanitizedEntry)
+        })
+      }
+
       const data = await res.json()
       if (res.ok) {
         setMessage('Experience saved successfully!')
         setEditingIndex(null)
         setShowAddForm(false)
+        
+        // Update the entry in local state with the returned ID
+        const updatedExperience = [...currentExperience]
+        if (!entry.id && data.entry && data.entry.id) {
+          // New entry - update with returned ID
+          updatedExperience[index] = { ...updatedExperience[index], id: data.entry.id }
+          setExperience(updatedExperience)
+        }
+        
+        // Reload to ensure sync
+        await loadExperience()
         setTimeout(() => setMessage(''), 3000)
       } else {
         setError(data.error || 'Failed to save experience')
@@ -57,14 +103,16 @@ export default function ExperiencePage() {
   }
 
   const handleAdd = () => {
+    const currentExperience = Array.isArray(experience) ? experience : []
     const newEntry = {
+      id: null, // Will be set after saving
       title: '',
       company: '',
       summary: '',
       stack: [],
       links: { site: '', repo: '', caseStudy: '' }
     }
-    setExperience([newEntry, ...experience])
+    setExperience([newEntry, ...currentExperience])
     setEditingIndex(0)
     setShowAddForm(true)
   }
@@ -80,16 +128,70 @@ export default function ExperiencePage() {
     loadExperience()
   }
 
-  const handleDelete = (index) => {
+  const handleDelete = async (index) => {
     if (confirm('Are you sure you want to delete this experience entry?')) {
-      setExperience(experience.filter((_, i) => i !== index))
+      const currentExperience = Array.isArray(experience) ? experience : []
+      const entry = currentExperience[index]
+      
+      if (!entry) {
+        setError('Experience entry not found')
+        return
+      }
+
+      // If entry has an ID, delete from database
+      if (entry.id) {
+        try {
+          const res = await fetch(`/api/experience?id=${entry.id}`, {
+            method: 'DELETE'
+          })
+          
+          if (res.ok) {
+            // Remove from local state
+            const updated = currentExperience.filter((_, i) => i !== index)
+            setExperience(updated)
+            setMessage('Experience entry deleted successfully!')
+            setTimeout(() => setMessage(''), 3000)
+          } else {
+            setError('Failed to delete experience entry')
+          }
+        } catch (err) {
+          console.error('Delete error:', err)
+          setError('Failed to delete experience entry')
+        }
+      } else {
+        // If no ID (new unsaved entry), just remove from local state
+        const updated = currentExperience.filter((_, i) => i !== index)
+        setExperience(updated)
+      }
     }
   }
 
   const updateExperience = (index, field, value) => {
-    const updated = [...experience]
-    updated[index] = { ...updated[index], [field]: value }
-    setExperience(updated)
+    // Ensure experience is always an array before updating
+    const currentExperience = Array.isArray(experience) ? experience : []
+    const updated = [...currentExperience]
+    
+    // Ensure we only store serializable values
+    let sanitizedValue = value
+    if (typeof value === 'string' || typeof value === 'number' || typeof value === 'boolean') {
+      sanitizedValue = value
+    } else if (Array.isArray(value)) {
+      sanitizedValue = value.map(item => String(item))
+    } else if (typeof value === 'object' && value !== null) {
+      // For objects like links, recursively sanitize
+      sanitizedValue = {}
+      for (const key in value) {
+        sanitizedValue[key] = String(value[key] || '')
+      }
+    } else {
+      sanitizedValue = String(value || '')
+    }
+    
+    // Only update if index is valid
+    if (index >= 0 && index < updated.length) {
+      updated[index] = { ...updated[index], [field]: sanitizedValue }
+      setExperience(updated)
+    }
   }
 
   const updateStack = (index, stackString) => {
@@ -206,10 +308,20 @@ export default function ExperiencePage() {
                     <input
                       type='text'
                       value={entry.links?.site || ''}
-                      onChange={(e) => updateLink(index, 'site', e.target.value)}
+                      onChange={(e) => {
+                        let value = e.target.value.trim()
+                        // Auto-add https:// if no protocol is provided
+                        if (value && !value.startsWith('http://') && !value.startsWith('https://')) {
+                          value = `https://${value}`
+                        }
+                        updateLink(index, 'site', value)
+                      }}
                       className='w-full rounded-lg border border-blue-500/20 bg-slate-800/50 px-4 py-2 text-sm text-white outline-none focus:border-blue-500/50'
-                      placeholder='https://...'
+                      placeholder='https://example.com or example.com'
                     />
+                    <p className='mt-1 text-xs text-slate-500'>
+                      Enter URL with or without https:// (will be added automatically)
+                    </p>
                   </div>
                   <div>
                     <label className='mb-2 block text-sm font-medium text-slate-300'>
@@ -238,7 +350,7 @@ export default function ExperiencePage() {
                 </div>
                 <div className='flex gap-2'>
                   <button
-                    onClick={handleSave}
+                    onClick={() => handleSave(index)}
                     disabled={saving}
                     className='flex items-center gap-2 rounded-lg bg-blue-600 px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-blue-700 disabled:opacity-50'
                   >

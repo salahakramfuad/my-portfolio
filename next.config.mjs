@@ -20,6 +20,16 @@ const nextConfig = {
       '@': path.resolve(__dirname),
     },
   },
+  // Configure image domains for Next.js Image component
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'res.cloudinary.com',
+        pathname: '/**',
+      },
+    ],
+  },
 };
 
 export default nextConfig;

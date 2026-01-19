@@ -9,15 +9,30 @@ import { uploadPDF } from '@/lib/cloudinary'
  */
 export async function GET() {
   try {
-    const [resumeDoc, downloadsSnapshot] = await Promise.all([
-      adminDb.collection('portfolio').doc('resume').get(),
-      adminDb.collection('resumeDownloads')
-        .orderBy('timestamp', 'desc')
-        .limit(100)
+    let resumeSnapshot
+    try {
+      // Try to order by 'uploadedAt' if indexed
+      resumeSnapshot = await adminDb.collection('resume')
+        .orderBy('uploadedAt', 'desc')
+        .limit(1)
         .get()
-    ])
+    } catch (orderError) {
+      // If not indexed, get all and find most recent
+      const allResumes = await adminDb.collection('resume').get()
+      const sorted = allResumes.docs.sort((a, b) => {
+        const dateA = a.data().uploadedAt || ''
+        const dateB = b.data().uploadedAt || ''
+        return dateB.localeCompare(dateA)
+      })
+      resumeSnapshot = { docs: sorted.slice(0, 1) }
+    }
 
-    const resumeData = resumeDoc.exists ? resumeDoc.data() : { url: null }
+    const downloadsSnapshot = await adminDb.collection('resumeDownloads')
+      .orderBy('timestamp', 'desc')
+      .limit(100)
+      .get()
+
+    const resumeData = resumeSnapshot.docs[0]?.data() || { url: null }
     const downloads = downloadsSnapshot.docs.map((doc) => ({
       id: doc.id,
       ...doc.data(),
@@ -73,8 +88,8 @@ export async function POST(request) {
     // Upload to Cloudinary
     const result = await uploadPDF(file, 'portfolio/resume')
 
-    // Save resume info to Firestore
-    await adminDb.collection('portfolio').doc('resume').set({
+    // Save resume info to Firestore in separate collection
+    await adminDb.collection('resume').add({
       url: result.url,
       publicId: result.publicId,
       filename: file.name || 'resume.pdf',

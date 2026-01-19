@@ -19,7 +19,11 @@ export default function SkillsPage() {
     try {
       const res = await fetch('/api/skills')
       const data = await res.json()
-      setSkills(data.skills || [])
+      // Extract skill names from objects or use strings directly
+      const skillsList = (data.skills || []).map(skill => 
+        typeof skill === 'string' ? skill : (skill?.name || '')
+      )
+      setSkills(skillsList)
     } catch (err) {
       console.error('Load skills error:', err)
       setError('Failed to load skills')
@@ -33,15 +37,22 @@ export default function SkillsPage() {
     setMessage('')
     setError('')
     try {
+      // Ensure skills is always an array of strings
+      const skillsArray = Array.isArray(skills) 
+        ? skills.map(skill => typeof skill === 'string' ? skill : (skill?.name || String(skill)))
+        : []
+      
       const res = await fetch('/api/skills', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ skills })
+        body: JSON.stringify({ skills: skillsArray })
       })
       const data = await res.json()
       if (res.ok) {
         setMessage('Skills saved successfully!')
         setTimeout(() => setMessage(''), 3000)
+        // Reload to get updated data
+        await loadSkills()
       } else {
         setError(data.error || 'Failed to save skills')
       }
