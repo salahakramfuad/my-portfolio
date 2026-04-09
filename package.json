@@ -3,9 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "build": "next build --webpack",
-    "dev": "next dev --webpack",
-    "dev:turbo": "next dev --turbopack",
+    "build": "dotenv -e .dev.vars -- next build --webpack",
+    "dev": "dotenv -e .dev.vars -- next dev --webpack",
+    "dev:turbo": "dotenv -e .dev.vars -- next dev --turbopack",
     "start": "next start",
     "lint": "next lint",
     "preview": "opennextjs-cloudflare build && opennextjs-cloudflare preview",
@@ -30,6 +30,7 @@
   "devDependencies": {
     "@eslint/eslintrc": "^3",
     "@tailwindcss/postcss": "^4",
+    "dotenv-cli": "^8.0.0",
     "@types/react": "19.2.6",
     "eslint": "^9",
     "eslint-config-next": "^16.0.10",
