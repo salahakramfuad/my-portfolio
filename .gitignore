@@ -37,3 +37,6 @@ next-env.d.ts
 
 # Firebase Admin Service Account (DO NOT COMMIT)
 lib/firebase-service-account.json
+
+# OpenNext
+.open-next
